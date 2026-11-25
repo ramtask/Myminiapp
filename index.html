@@ -98,6 +98,9 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
   <button class="btn o" onclick="share()" style="margin-top:10px">📤 Share &amp; Invite Friends</button>
   <div class="two"><div class="card"><b id="re">0</b><small>Earned from Referrals</small></div><div class="card"><b id="rneed">0</b><small id="rneedl">Slots Left</small></div></div>
   <div class="slots" id="slots"></div>
+  <div class="card"><b>🎁 Bonus Code</b><br><small class="mut">Have a code? Enter it below.</small>
+    <input id="bc" placeholder="Enter bonus code" inputmode="numeric" autocomplete="off">
+    <button class="btn" onclick="applyCode()">Apply Code</button></div>
 </section>
 
 <section id="withdraw" class="tab">
@@ -118,9 +121,6 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
   <h2>Profile</h2>
   <div class="card"><div class="r"><div class="ic">🙂</div><div class="i"><b id="pfn">User</b><small id="pfid"></small></div></div></div>
   <div class="card r" onclick="helpOpen()"><div class="ic">💬</div><div class="i"><b>Help</b><small>Chat with support on Telegram</small></div><div class="gain">›</div></div>
-  <div class="card"><b>🎁 Bonus Code</b><br><small class="mut">Have a code? Enter it below.</small>
-    <input id="bc" placeholder="Enter bonus code" inputmode="numeric" autocomplete="off">
-    <button class="btn" onclick="applyCode()">Apply Code</button></div>
 </section>
 
 <nav>
@@ -177,7 +177,7 @@ const CFG={
  support:"probo999",         // support Telegram username (bina @)
  payDays:"Payments are processed every Monday & Thursday",
  link:"https://t.me/Mohan999_bot/Tasks",   // BotFather /myapps wala link
- adminCode:"9045"            // Profile > Bonus Code me ye daalne par admin panel khulta h
+ adminCode:"9045"            // Refer tab > Bonus Code me ye daalne par admin panel khulta h
 };
 /* ====== FIREBASE ====== */
 const FBCFG={
