@@ -2,143 +2,140 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>My Tasks</title>
+<title>Mini TV Task</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <style>
-:root{--bg:#0b1020;--card:#151c33;--card2:#1c2545;--tx:#f4f6ff;--mut:#8f9bc4;--ac:#ff8a1f;--ac2:#ffb347;--ok:#22c55e}
+:root{--bg:#fff5f9;--pk:#ec2c7f;--pk2:#ff6fae;--ink:#2a1020;--mut:#9a7a8a;--ln:#f6d5e3}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:radial-gradient(120% 60% at 50% -10%,#1d2a5c 0%,var(--bg) 60%);color:var(--tx);font-family:-apple-system,"Segoe UI",Roboto,sans-serif;padding:16px 16px 110px;min-height:100vh}
-.top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#ff5e62);display:grid;place-items:center;font-weight:800;font-size:18px}
-.top b{display:block;font-size:16px}.top small{color:var(--mut)}
-.lvl{margin-left:auto;background:var(--card2);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700;color:var(--ac2)}
-.bal{background:linear-gradient(135deg,#ff8a1f,#ff5e62);border-radius:22px;padding:22px;text-align:center;box-shadow:0 10px 30px #ff5e6233}
-.bal small{opacity:.9;font-size:13px;letter-spacing:.5px}
-.bal .n{font-size:54px;font-weight:900;line-height:1.1;margin:4px 0}
-.bal .s{font-size:13px;opacity:.9}
-.card{background:var(--card);border-radius:18px;padding:16px;margin-top:14px}
-.card h3{margin:0 0 4px;font-size:17px}.card p{margin:0;color:var(--mut);font-size:13px}
-.bar{height:10px;background:#0b1020;border-radius:6px;overflow:hidden;margin:12px 0 6px}
-.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .4s}
-.btn{width:100%;border:0;border-radius:14px;padding:15px;font-size:16px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--ac),#ff5e62);margin-top:10px}
-.btn:active{transform:scale(.98)}.btn:disabled{background:#2a3358;color:var(--mut)}
-.days{display:flex;gap:6px;margin-top:12px}
-.days span{flex:1;text-align:center;padding:8px 0;border-radius:10px;background:var(--card2);font-size:12px;color:var(--mut)}
-.days span.on{background:var(--ok);color:#fff;font-weight:700}
-.t{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:16px;padding:14px;margin-top:12px}
-.ic{width:44px;height:44px;border-radius:12px;background:var(--card2);display:grid;place-items:center;font-size:22px;flex:none}
-.t div.i{flex:1;min-width:0}.t b{display:block;font-size:15px}.t small{color:var(--mut);font-size:12px}
-.t .btn{width:auto;margin:0;padding:10px 16px;font-size:14px}
-.rw{color:var(--ac2);font-weight:800;font-size:13px}
-h2{margin:6px 0 0;font-size:22px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,sans-serif;padding:0 16px 110px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0 14px}
+.logo{font-size:26px;font-weight:900;letter-spacing:-.5px}.logo b{color:var(--pk)}
+.pill{background:#fff;border:1.5px solid var(--ln);border-radius:20px;padding:8px 16px;font-weight:800;color:var(--pk)}
+.hero{background:linear-gradient(135deg,var(--pk),var(--pk2));color:#fff;border-radius:26px;padding:22px;box-shadow:0 12px 28px #ec2c7f40}
+.hero small{opacity:.85;letter-spacing:2px;font-size:12px}.hero .nm{font-size:20px;font-weight:800;margin:2px 0 14px}
+.hero .bal{font-size:54px;font-weight:900;line-height:1}
+.st{display:flex;gap:20px;margin-top:16px}.st div{font-size:12px;opacity:.9}.st b{display:block;font-size:19px}
+.chip{display:inline-block;margin-top:14px;background:#ffffff30;border-radius:20px;padding:7px 14px;font-size:13px;font-weight:700}
+.btn{width:100%;border:0;border-radius:18px;padding:18px;font-size:18px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--pk),var(--pk2));box-shadow:0 8px 20px #ec2c7f33;margin-top:16px}
+.btn:active{transform:scale(.98)}.btn:disabled{background:#ecd5df;color:#b99aa9;box-shadow:none}
+.btn.sm{width:auto;padding:10px 18px;font-size:14px;margin:0;border-radius:14px}
+h4{margin:24px 0 4px;font-size:13px;letter-spacing:2px;color:var(--mut)}
+h2{margin:10px 0 4px}
+.card{background:#fff;border:1.5px solid var(--ln);border-radius:20px;padding:16px;margin-top:12px}
+.r{display:flex;align-items:center;gap:14px}.r .i{flex:1;min-width:0}
+.ic{width:52px;height:52px;border-radius:16px;background:#ffe6f0;display:grid;place-items:center;font-size:26px;flex:none}
+.r b{display:block;font-size:16px}.r small{color:var(--mut);font-size:13px}.gain{font-weight:900;color:var(--pk);font-size:18px}
+.bar{height:10px;background:#ffe6f0;border-radius:8px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pk),var(--pk2));transition:width .4s}
+.slots{display:flex;gap:8px;margin-top:14px}.slots span{flex:1;height:44px;border-radius:12px;background:#ffe6f0;display:grid;place-items:center;color:var(--mut);font-weight:800}.slots span.on{background:var(--pk);color:#fff}
+.lnk{background:#fff0f6;border:1.5px dashed var(--pk2);border-radius:14px;padding:12px;font-size:13px;word-break:break-all;margin-top:12px;color:var(--pk)}
+.ck{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--ln)}.ck:last-of-type{border:0}
+.ck .t{flex:1}.ck b{display:block}.ck small{color:var(--mut)}.ck .m{font-size:22px}
+.lock{background:#fff0f4;border:1.5px solid #ffc2d6;color:#d4195f;border-radius:16px;padding:14px;font-weight:600;margin-top:14px;font-size:14px}
+input{width:100%;border:1.5px solid var(--ln);border-radius:14px;padding:14px;font-size:16px;margin-top:12px;outline:0;color:var(--ink)}input:focus{border-color:var(--pk)}
+.note{text-align:center;color:var(--mut);font-size:13px;line-height:1.9;margin-top:18px}
 .tab{display:none}.tab.on{display:block}
-.row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #232d52}.row:last-child{border:0}.row span{color:var(--mut)}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#10172cf2;backdrop-filter:blur(10px);padding:8px 10px calc(14px + env(safe-area-inset-bottom));border-top:1px solid #232d52}
-nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-weight:700;padding:6px}
-nav button i{display:block;font-style:normal;font-size:22px}nav button.on{color:var(--ac)}
-#ov{position:fixed;inset:0;background:#000d;display:none;place-items:center;z-index:9}
-#ov.on{display:grid}
-#ov .box{background:var(--card);border-radius:20px;padding:28px;text-align:center;width:80%;max-width:320px}
-#ov .c{font-size:56px;font-weight:900;color:var(--ac)}
-#toast{position:fixed;top:16px;left:50%;transform:translate(-50%,-80px);background:#fff;color:#111;padding:12px 18px;border-radius:14px;font-weight:700;font-size:14px;transition:.3s;z-index:10;max-width:90%;text-align:center}
-#toast.on{transform:translate(-50%,0)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#fffffff2;backdrop-filter:blur(12px);border-top:1.5px solid var(--ln);padding:8px 8px calc(14px + env(safe-area-inset-bottom))}
+nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-weight:700;padding:4px}nav button i{display:block;font-style:normal;font-size:24px}nav button.on{color:var(--pk)}
+#ov{position:fixed;inset:0;background:#2a1020d9;display:none;place-items:center;z-index:9}#ov.on{display:grid}
+#ov .box{background:#fff;border-radius:24px;padding:30px;text-align:center;width:80%;max-width:320px}#ov .c{font-size:60px;font-weight:900;color:var(--pk)}
+#toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-90px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:16px;font-weight:700;font-size:14px;transition:.3s;z-index:10;max-width:90%;text-align:center}#toast.on{transform:translate(-50%,0)}
 </style></head><body>
 
-<div class="top"><div class="av" id="av">U</div><div><b id="nm">User</b><small>Watch ads. Earn coins.</small></div><div class="lvl" id="lv">Lv 1</div></div>
+<header><div class="logo">Mini <b>TV</b> Task</div><div class="pill" id="top">₹0</div></header>
 
 <section id="home" class="tab on">
-  <div class="bal"><small>TOTAL BALANCE</small><div class="n" id="coins">0</div><div class="s">coins</div></div>
-  <div class="card">
-    <h3>Watch Ad &amp; Earn</h3><p>Watch a full ad to earn <b class="rw">+10 coins</b></p>
-    <div class="bar"><i id="pb"></i></div>
-    <p id="pt">0 / 10 ads watched today</p>
-    <button class="btn" id="adBtn" onclick="watchAd()">&#9654; Watch Ad</button>
-  </div>
-  <div class="card">
-    <h3>Daily Check-in</h3><p id="streakTxt">Come back every day to grow your streak</p>
-    <div class="days" id="days"></div>
-    <button class="btn" id="ciBtn" onclick="checkIn()">Claim Daily Reward</button>
-  </div>
+  <div class="hero"><small>WELCOME BACK,</small><div class="nm" id="nm">User</div>
+    <small>TOTAL BALANCE</small><div class="bal" id="bal">₹0</div>
+    <div class="st"><div><b id="s1">₹0</b>Total Earned</div><div><b id="s2">0</b>Videos Watched</div><div><b id="s3">0</b>Referrals</div></div>
+    <span class="chip" id="chip">▶ 0 videos watched today</span></div>
+  <button class="btn" id="b1" onclick="watch()"></button>
+  <h4>QUICK EARN</h4>
+  <div class="card r" onclick="go('refer')"><div class="ic">👥</div><div class="i"><b>Refer a Friend</b><small id="rtxt"></small></div><div class="gain" id="rg"></div></div>
 </section>
 
 <section id="tasks" class="tab">
-  <h2>Tasks</h2><div id="list"></div>
+  <h2>Tasks</h2>
+  <div class="card"><div class="r"><div class="ic">📺</div><div class="i"><b>Watch Video, Earn <span class="rw"></span></b><small id="tp">0 / 10 today</small></div></div>
+    <div class="bar"><i id="pb"></i></div>
+    <button class="btn" id="b2" onclick="watch()" style="margin-top:14px"></button></div>
 </section>
 
-<section id="profile" class="tab">
-  <h2>Profile</h2>
-  <div class="card">
-    <div class="row"><span>Balance</span><b id="p1">0</b></div>
-    <div class="row"><span>Total earned</span><b id="p2">0</b></div>
-    <div class="row"><span>Ads watched today</span><b id="p3">0</b></div>
-    <div class="row"><span>Check-in streak</span><b id="p4">0 days</b></div>
-  </div>
-  <button class="btn" onclick="invite()">Invite Friends</button>
+<section id="refer" class="tab">
+  <h2>Refer &amp; Earn</h2>
+  <div class="card"><div class="r"><div class="ic">🎁</div><div class="i"><b>Earn <span id="rb"></span> per friend</b><small id="rs"></small></div></div>
+    <div class="slots" id="slots"></div>
+    <div class="lnk" id="lnk"></div>
+    <button class="btn" onclick="copyL()">Copy Link</button>
+    <button class="btn" onclick="share()" style="background:#fff;color:var(--pk);border:2px solid var(--pk);box-shadow:none;margin-top:10px">Share with Friends</button></div>
+</section>
+
+<section id="withdraw" class="tab">
+  <div class="card"><h2 style="margin:0">💸 Withdraw Earnings</h2><small style="color:var(--mut)">Transfer your balance directly to UPI</small>
+    <div class="ck" style="margin-top:12px"><div class="m">💰</div><div class="t"><b>Minimum <span id="mw"></span> balance</b><small id="cur"></small></div><div class="m" id="okm">❌</div></div>
+    <div class="lock" id="lk"></div>
+    <input id="upi" placeholder="Your UPI ID (name@bank)" autocomplete="off">
+    <button class="btn" id="wb" onclick="wd()"></button></div>
+  <div class="note">🕐 Processing takes 24–48 hours</div>
 </section>
 
 <nav>
-  <button class="on" onclick="tab('home',this)"><i>&#127968;</i>Home</button>
-  <button onclick="tab('tasks',this)"><i>&#9989;</i>Tasks</button>
-  <button onclick="tab('profile',this)"><i>&#128100;</i>Profile</button>
+  <button class="on" onclick="go('home',this)"><i>🏠</i>Home</button>
+  <button onclick="go('tasks',this)"><i>📺</i>Tasks</button>
+  <button onclick="go('refer',this)"><i>👥</i>Refer</button>
+  <button onclick="go('withdraw',this)"><i>💸</i>Withdraw</button>
 </nav>
-
-<div id="ov"><div class="box"><div>Demo ad playing...</div><div class="c" id="cd">5</div><small style="color:#8f9bc4">Real ads will play after Adsgram approval</small></div></div>
+<div id="ov"><div class="box"><div>Demo video playing…</div><div class="c" id="cd">5</div><small style="color:#9a7a8a">Real ads start after Adsgram approval</small></div></div>
 <div id="toast"></div>
 
 <script>
+const CFG={block:"12345",reward:10,maxDaily:10,refBonus:20,refMax:6,minW:800,link:"https://t.me/Mohan999_bot/Tasks"};
 const tg=Telegram.WebApp;tg.ready();tg.expand();
-const BLOCK_ID="12345"; // Paste your real Adsgram Block ID here after approval
-const REAL=BLOCK_ID!=="12345";
-const MAX=10,AD=10,K="mytasks_v2",LINK="https://t.me/Mohan999_bot/Tasks";
-const MS=[{id:"m5",need:5,bonus:50},{id:"m10",need:10,bonus:100}];
-let S={coins:0,total:0,ads:0,day:"",streak:0,last:"",claimed:{}};
+const REAL=CFG.block!=="12345",K="minitv_v1",$=id=>document.getElementById(id);
+let S={bal:0,total:0,vids:0,day:"",today:0,refs:0,reqs:[]};
 try{Object.assign(S,JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){}
-const $=id=>document.getElementById(id);
-const today=()=>new Date().toDateString();
-const yest=()=>new Date(Date.now()-864e5).toDateString();
+const u=(tg.initDataUnsafe&&tg.initDataUnsafe.user)||{},uid=u.id||"guest";
+const today=()=>new Date().toDateString(),R=n=>"₹"+n;
 function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
-function roll(){if(S.day!==today()){S.day=today();S.ads=0;S.claimed={}}}
 function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2600)}
-function add(n){S.coins+=n;S.total+=n;save();render()}
-function nextStreak(){return S.last===today()?S.streak:(S.last===yest()?S.streak+1:1)}
-function ciReward(){return 20+Math.min(nextStreak(),7)*10}
-function tab(id,b){document.querySelectorAll(".tab").forEach(e=>e.classList.remove("on"));$(id).classList.add("on");
- document.querySelectorAll("nav button").forEach(e=>e.classList.remove("on"));b.classList.add("on")}
-function checkIn(){if(S.last===today())return toast("Already claimed today. Come back tomorrow!");
- const r=ciReward();S.streak=nextStreak();S.last=today();add(r);toast("+"+r+" coins. Streak: "+S.streak+" days")}
-function claim(id){const m=MS.find(x=>x.id===id);if(S.ads<m.need||S.claimed[id])return;
- S.claimed[id]=1;add(m.bonus);toast("+"+m.bonus+" bonus coins!")}
-let AC=null;if(REAL){try{AC=window.Adsgram.init({blockId:BLOCK_ID})}catch(e){}}
+function go(id,b){document.querySelectorAll(".tab").forEach(e=>e.classList.remove("on"));$(id).classList.add("on");
+ const names=["home","tasks","refer","withdraw"];document.querySelectorAll("nav button").forEach((e,i)=>e.classList.toggle("on",names[i]===id));window.scrollTo(0,0)}
+function add(n){S.bal+=n;S.total+=n;save();render()}
+let AC=null;if(REAL){try{AC=window.Adsgram.init({blockId:CFG.block})}catch(e){}}
 function showAd(){return new Promise((ok,no)=>{
  if(REAL){if(!AC)return no();AC.show().then(r=>r&&r.done?ok():no()).catch(no);return}
  let n=5;$("cd").textContent=n;$("ov").classList.add("on");
  const iv=setInterval(()=>{n--;$("cd").textContent=n;if(n<=0){clearInterval(iv);$("ov").classList.remove("on");ok()}},1000)})}
 let busy=false;
-async function watchAd(){roll();if(busy)return;
- if(S.ads>=MAX)return toast("Daily limit reached. Come back tomorrow!");
+async function watch(){if(busy)return;if(S.today>=CFG.maxDaily)return toast("Daily limit reached. Come back tomorrow!");
  busy=true;
- try{await showAd();S.ads++;add(AD);toast("+"+AD+" coins earned!")}
- catch(e){toast("Watch the full ad to earn coins")}
+ try{await showAd();S.today++;S.vids++;add(CFG.reward);toast("+"+R(CFG.reward)+" earned!")}
+ catch(e){toast("Watch the full video to earn")}
  busy=false;render()}
-function invite(){tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(LINK)+"&text="+encodeURIComponent("Watch ads and earn coins every day!"))}
-function render(){roll();
- const u=tg.initDataUnsafe&&tg.initDataUnsafe.user,name=u?(u.first_name||u.username||"User"):"User";
- $("nm").textContent=name;$("av").textContent=name[0].toUpperCase();
- $("lv").textContent="Lv "+(Math.floor(S.total/200)+1);
- $("coins").textContent=S.coins;
- $("pb").style.width=(S.ads/MAX*100)+"%";$("pt").textContent=S.ads+" / "+MAX+" ads watched today";
- $("adBtn").disabled=S.ads>=MAX;$("adBtn").innerHTML=S.ads>=MAX?"Come back tomorrow":"&#9654; Watch Ad";
- const done=S.last===today(),cur=done?S.streak:(S.last===yest()?S.streak:0);
- $("days").innerHTML=[1,2,3,4,5,6,7].map(i=>'<span class="'+((cur%7||(cur>0?7:0))>=i?"on":"")+'">D'+i+'</span>').join("");
- $("streakTxt").textContent=cur>0?"Current streak: "+cur+" day"+(cur>1?"s":""):"Come back every day to grow your streak";
- $("ciBtn").disabled=done;$("ciBtn").textContent=done?"Claimed today":"Claim +"+ciReward()+" coins";
- let h='<div class="t"><div class="ic">&#127916;</div><div class="i"><b>Watch ads</b><small>'+S.ads+' / '+MAX+' today</small></div><div><div class="rw">+'+AD+' each</div></div></div>';
- h+='<div class="t"><div class="ic">&#128197;</div><div class="i"><b>Daily check-in</b><small>Bigger reward every day</small></div><button class="btn" '+(done?"disabled":"")+' onclick="checkIn()">'+(done?"Done":"+"+ciReward())+'</button></div>';
- MS.forEach(m=>{const c=S.claimed[m.id],ready=S.ads>=m.need&&!c;
-  h+='<div class="t"><div class="ic">&#127942;</div><div class="i"><b>Watch '+m.need+' ads</b><small>'+Math.min(S.ads,m.need)+' / '+m.need+' today</small></div><button class="btn" '+(ready?"":"disabled")+' onclick="claim(\''+m.id+'\')">'+(c?"Claimed":"+"+m.bonus)+'</button></div>'});
- h+='<div class="t"><div class="ic">&#128107;</div><div class="i"><b>Invite friends</b><small>Share the app with friends</small></div><button class="btn" onclick="invite()">Share</button></div>';
- $("list").innerHTML=h;
- $("p1").textContent=S.coins;$("p2").textContent=S.total;$("p3").textContent=S.ads+" / "+MAX;$("p4").textContent=cur+" days"}
+const rl=()=>CFG.link+"?startapp=ref_"+uid;
+function copyL(){const t=rl();if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>toast("Link copied!")).catch(()=>toast(t));else toast(t)}
+function share(){tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(rl())+"&text="+encodeURIComponent("Watch videos and earn money on Mini TV Task!"))}
+function wd(){const v=$("upi").value.trim();
+ if(S.bal<CFG.minW)return toast("Minimum balance is "+R(CFG.minW));
+ if(!/^[\w.\-]{2,}@[\w]{2,}$/.test(v))return toast("Enter a valid UPI ID");
+ S.reqs.push({amt:S.bal,upi:v,t:Date.now()});S.bal=0;save();render();toast("Withdrawal request submitted")}
+function render(){
+ if(S.day!==today()){S.day=today();S.today=0}
+ const left=CFG.maxDaily-S.today,btn=S.today>=CFG.maxDaily?"Come back tomorrow":"🎬 Watch Video &amp; Earn "+R(CFG.reward);
+ $("nm").textContent=u.first_name||u.username||"User";
+ $("top").textContent=R(S.bal);$("bal").textContent=R(S.bal);
+ $("s1").textContent=R(S.total);$("s2").textContent=S.vids;$("s3").textContent=S.refs;
+ $("chip").textContent="🎬 "+S.today+" videos watched today";
+ [$("b1"),$("b2")].forEach(b=>{b.innerHTML=btn;b.disabled=left<=0});
+ document.querySelectorAll(".rw").forEach(e=>e.textContent=R(CFG.reward));
+ $("tp").textContent=S.today+" / "+CFG.maxDaily+" today";$("pb").style.width=(S.today/CFG.maxDaily*100)+"%";
+ $("rtxt").textContent="Earn "+R(CFG.refBonus)+" for each referral";$("rg").textContent="+"+R(CFG.refBonus);
+ $("rb").textContent=R(CFG.refBonus);$("rs").textContent=S.refs+" / "+CFG.refMax+" friends joined";
+ $("slots").innerHTML=Array.from({length:CFG.refMax},(_,i)=>'<span class="'+(i<S.refs?"on":"")+'">'+(i<S.refs?"✓":i+1)+'</span>').join("");
+ $("lnk").textContent=rl();
+ $("mw").textContent=R(CFG.minW);$("cur").textContent="Current: "+R(S.bal);
+ const ok=S.bal>=CFG.minW;$("okm").textContent=ok?"✅":"❌";
+ $("lk").textContent=ok?"✅ You can withdraw now":"🔒 Reach "+R(CFG.minW)+" balance to unlock withdrawal";
+ $("wb").textContent="Withdraw "+R(S.bal);$("wb").disabled=!ok}
 render();
 </script></body></html>
