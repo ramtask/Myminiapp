@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+  <title>My Tasks</title>
+</head>
+<body style="font-family:sans-serif;text-align:center;padding:30px">
+  <h2>Coins: <span id="coins">0</span></h2>
+  <button onclick="showAd()" style="font-size:20px;padding:14px 24px">
+    Ad dekho, 10 coins pao
+  </button>
+
+  <script>
+    Telegram.WebApp.ready();
+    let coins = 0;
+    const AdController = window.Adsgram.init({ blockId: "12345" });
+
+    function showAd() {
+      AdController.show()
+        .then(() => {
+          coins += 10;
+          document.getElementById("coins").innerText = coins;
+        })
+        .catch(() => alert("Ad nahi chala, thodi der baad try karo"));
+    }
+  </script>
+</body>
+</html>
