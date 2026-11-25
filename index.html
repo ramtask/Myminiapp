@@ -19,36 +19,55 @@ header{display:flex;justify-content:space-between;align-items:center;padding:18p
 .chip{display:inline-block;margin-top:14px;background:#ffffff30;border-radius:20px;padding:7px 14px;font-size:13px;font-weight:700}
 .btn{width:100%;border:0;border-radius:18px;padding:18px;font-size:18px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--pk),var(--pk2));box-shadow:0 8px 20px #ec2c7f33;margin-top:16px}
 .btn:active{transform:scale(.98)}.btn:disabled{background:#ecd5df;color:#b99aa9;box-shadow:none}
-.btn.sm{width:auto;padding:10px 18px;font-size:14px;margin:0;border-radius:14px}
+.btn.o{background:#fff;color:var(--pk);border:2px solid var(--pk);box-shadow:none}
 h4{margin:24px 0 4px;font-size:13px;letter-spacing:2px;color:var(--mut)}
 h2{margin:10px 0 4px}
 .card{background:#fff;border:1.5px solid var(--ln);border-radius:20px;padding:16px;margin-top:12px}
 .r{display:flex;align-items:center;gap:14px}.r .i{flex:1;min-width:0}
 .ic{width:52px;height:52px;border-radius:16px;background:#ffe6f0;display:grid;place-items:center;font-size:26px;flex:none}
 .r b{display:block;font-size:16px}.r small{color:var(--mut);font-size:13px}.gain{font-weight:900;color:var(--pk);font-size:18px}
-.bar{height:10px;background:#ffe6f0;border-radius:8px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pk),var(--pk2));transition:width .4s}
 .slots{display:flex;gap:8px;margin-top:14px}.slots span{flex:1;height:44px;border-radius:12px;background:#ffe6f0;display:grid;place-items:center;color:var(--mut);font-weight:800}.slots span.on{background:var(--pk);color:#fff}
 .lnk{background:#fff0f6;border:1.5px dashed var(--pk2);border-radius:14px;padding:12px;font-size:13px;word-break:break-all;margin-top:12px;color:var(--pk)}
-.ck{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--ln)}.ck:last-of-type{border:0}
+.ck{display:flex;align-items:center;gap:12px;padding:14px 0}
 .ck .t{flex:1}.ck b{display:block}.ck small{color:var(--mut)}.ck .m{font-size:22px}
-.lock{background:#fff0f4;border:1.5px solid #ffc2d6;color:#d4195f;border-radius:16px;padding:14px;font-weight:600;margin-top:14px;font-size:14px}
+.lock{background:#fff0f4;border:1.5px solid #ffc2d6;color:#d4195f;border-radius:16px;padding:14px;font-weight:600;margin-top:6px;font-size:14px}
 input{width:100%;border:1.5px solid var(--ln);border-radius:14px;padding:14px;font-size:16px;margin-top:12px;outline:0;color:var(--ink)}input:focus{border-color:var(--pk)}
 .note{text-align:center;color:var(--mut);font-size:13px;line-height:1.9;margin-top:18px}
+.vl{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--ln);font-size:14px}
+.vl b{letter-spacing:1px;color:var(--pk)}.vl small{color:var(--mut)}
 .tab{display:none}.tab.on{display:block}
 nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#fffffff2;backdrop-filter:blur(12px);border-top:1.5px solid var(--ln);padding:8px 8px calc(14px + env(safe-area-inset-bottom))}
 nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-weight:700;padding:4px}nav button i{display:block;font-style:normal;font-size:24px}nav button.on{color:var(--pk)}
-#ov{position:fixed;inset:0;background:#2a1020d9;display:none;place-items:center;z-index:9}#ov.on{display:grid}
-#ov .box{background:#fff;border-radius:24px;padding:30px;text-align:center;width:80%;max-width:320px}#ov .c{font-size:60px;font-weight:900;color:var(--pk)}
-#toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-90px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:16px;font-weight:700;font-size:14px;transition:.3s;z-index:10;max-width:90%;text-align:center}#toast.on{transform:translate(-50%,0)}
+.ovl{position:fixed;inset:0;background:#2a1020d9;display:none;place-items:center;z-index:9}.ovl.on{display:grid}
+.box{background:#fff;border-radius:24px;padding:26px;text-align:center;width:86%;max-width:340px}
+.code{font-size:24px;font-weight:900;letter-spacing:2px;color:var(--pk);background:#fff0f6;border:2px dashed var(--pk2);border-radius:14px;padding:16px 8px;margin:14px 0;word-break:break-all}
+/* Loading Ad sheet */
+#ld{position:fixed;inset:0;background:#2a1020b3;display:none;align-items:flex-end;z-index:11}#ld.on{display:flex}
+#ld .sh{background:#fff;width:100%;border-radius:28px 28px 0 0;padding:34px 20px calc(44px + env(safe-area-inset-bottom));text-align:center}
+#ld .sh h2{font-size:34px;margin:10px 0 18px;color:var(--pk)}
+.spin{width:64px;height:64px;border-radius:50%;border:6px solid #ffe0ec;border-top-color:var(--pk);margin:0 auto 18px;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* Demo ad screen */
+#da{position:fixed;inset:0;background:#0f1522;display:none;flex-direction:column;z-index:12;color:#fff;padding-top:env(safe-area-inset-top)}#da.on{display:flex}
+#da .seg{display:flex;gap:8px;padding:14px 16px}#da .seg i{flex:1;height:3px;background:#2b3a52;border-radius:3px;overflow:hidden}#da .seg i b{display:block;height:100%;background:#2ea6ff}
+#da .img{flex:1;margin:0;background:linear-gradient(135deg,var(--pk),var(--pk2));display:grid;place-items:center;font-size:90px}
+#da .tx{background:#1e2a3c;margin:0 16px;border-radius:20px 20px 0 0;padding:16px;margin-top:-20px;position:relative}
+#da .tx h3{margin:0 0 6px;font-size:20px}#da .tx p{margin:0;color:#c9d4e6;font-size:16px;line-height:1.4}#da .tx small{display:block;text-align:right;color:#7b8aa3;margin-top:8px}
+#da .adv{background:#1e2a3c;margin:4px 16px 0;border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:12px;color:#2ea6ff;font-size:19px}
+#da .adv span{width:44px;height:44px;border-radius:50%;background:var(--pk);display:grid;place-items:center;font-size:22px}
+#da .pg{margin:16px;height:64px;border-radius:18px;background:#7b8a98;position:relative;overflow:hidden}
+#da .pg i{position:absolute;left:0;top:0;bottom:0;width:0;background:#2ea6ff}#da .pg b{position:absolute;inset:0;display:grid;place-items:center;font-size:26px;font-weight:500}
+#da .tm{align-self:center;background:#1e2a3c;border-radius:20px;padding:8px 18px;font-size:20px;margin-bottom:calc(24px + env(safe-area-inset-bottom))}
+#toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-90px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:16px;font-weight:700;font-size:14px;transition:.3s;z-index:20;max-width:90%;text-align:center}#toast.on{transform:translate(-50%,0)}
 </style></head><body>
 
-<header><div class="logo">Mini <b>TV</b> Task</div><div class="pill" id="top">₹0</div></header>
+<header><div class="logo">Mini <b>TV</b> Task</div><div class="pill" id="top">0 🪙</div></header>
 
 <section id="home" class="tab on">
   <div class="hero"><small>WELCOME BACK,</small><div class="nm" id="nm">User</div>
-    <small>TOTAL BALANCE</small><div class="bal" id="bal">₹0</div>
-    <div class="st"><div><b id="s1">₹0</b>Total Earned</div><div><b id="s2">0</b>Videos Watched</div><div><b id="s3">0</b>Referrals</div></div>
-    <span class="chip" id="chip">▶ 0 videos watched today</span></div>
+    <small>TOTAL BALANCE</small><div class="bal" id="bal">0 🪙</div>
+    <div class="st"><div><b id="s1">0</b>Total Earned</div><div><b id="s2">0</b>Videos Watched</div><div><b id="s3">0</b>Referrals</div></div>
+    <span class="chip" id="chip">🎬 0 videos watched today</span></div>
   <button class="btn" id="b1" onclick="watch()"></button>
   <h4>QUICK EARN</h4>
   <div class="card r" onclick="go('refer')"><div class="ic">👥</div><div class="i"><b>Refer a Friend</b><small id="rtxt"></small></div><div class="gain" id="rg"></div></div>
@@ -56,9 +75,11 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-
 
 <section id="tasks" class="tab">
   <h2>Tasks</h2>
-  <div class="card"><div class="r"><div class="ic">📺</div><div class="i"><b>Watch Video, Earn <span class="rw"></span></b><small id="tp">0 / 10 today</small></div></div>
-    <div class="bar"><i id="pb"></i></div>
+  <div class="card"><div class="r"><div class="ic">📺</div><div class="i"><b>Watch Video, Earn <span class="rw"></span></b><small id="tp">0 videos watched today</small></div></div>
     <button class="btn" id="b2" onclick="watch()" style="margin-top:14px"></button></div>
+  <div class="card"><div class="r"><div class="ic">🎟️</div><div class="i"><b>Reward Voucher</b><small id="vs"></small></div><div class="gain" id="vc"></div></div>
+    <button class="btn" id="vb" onclick="buyV()" style="margin-top:14px"></button>
+    <div id="vlist"></div></div>
 </section>
 
 <section id="refer" class="tab">
@@ -67,7 +88,7 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-
     <div class="slots" id="slots"></div>
     <div class="lnk" id="lnk"></div>
     <button class="btn" onclick="copyL()">Copy Link</button>
-    <button class="btn" onclick="share()" style="background:#fff;color:var(--pk);border:2px solid var(--pk);box-shadow:none;margin-top:10px">Share with Friends</button></div>
+    <button class="btn o" onclick="share()" style="margin-top:10px">Share with Friends</button></div>
 </section>
 
 <section id="withdraw" class="tab">
@@ -76,59 +97,103 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-
     <div class="lock" id="lk"></div>
     <input id="upi" placeholder="Your UPI ID (name@bank)" autocomplete="off">
     <button class="btn" id="wb" onclick="wd()"></button></div>
-  <div class="note">🕐 Processing takes 24–48 hours</div>
+  <div class="note" id="pn"></div>
 </section>
 
 <nav>
-  <button class="on" onclick="go('home',this)"><i>🏠</i>Home</button>
-  <button onclick="go('tasks',this)"><i>📺</i>Tasks</button>
-  <button onclick="go('refer',this)"><i>👥</i>Refer</button>
-  <button onclick="go('withdraw',this)"><i>💸</i>Withdraw</button>
+  <button class="on" onclick="go('home')"><i>🏠</i>Home</button>
+  <button onclick="go('tasks')"><i>📺</i>Tasks</button>
+  <button onclick="go('refer')"><i>👥</i>Refer</button>
+  <button onclick="go('withdraw')"><i>💸</i>Withdraw</button>
 </nav>
-<div id="ov"><div class="box"><div>Demo video playing…</div><div class="c" id="cd">5</div><small style="color:#9a7a8a">Real ads start after Adsgram approval</small></div></div>
+
+<div id="ld"><div class="sh"><div style="font-size:64px">🎬</div><h2>Loading Ad...</h2><div class="spin"></div><small style="color:#9a7a8a;font-size:16px">Connecting to ad network…</small></div></div>
+
+<div id="da"><div class="seg"><i><b style="width:100%"></b></i><i><b style="width:50%"></b></i><i></i></div>
+  <div class="img">📺</div>
+  <div class="tx"><h3>Demo Ad</h3><p>Your real ads will appear here after Adsgram approval.</p><small>Ad · Demo</small></div>
+  <div class="adv"><span>🎯</span>Demo Advertiser</div>
+  <div class="pg"><i id="dp"></i><b id="dpt">0%</b></div>
+  <div class="tm" id="dt">00:08</div></div>
+
+<div class="ovl" id="vo"><div class="box"><h2 style="margin:0">🎟️ Your Voucher Code</h2>
+  <div class="code" id="vcode"></div>
+  <small style="color:#9a7a8a">Send this code to support to receive your payout.</small>
+  <button class="btn" onclick="sendSup()">Send to Support</button>
+  <button class="btn o" onclick="copyC()" style="margin-top:10px">Copy Code</button>
+  <button class="btn o" onclick="closeV()" style="margin-top:10px;border-color:#ecd5df;color:#9a7a8a">Close</button></div></div>
 <div id="toast"></div>
 
 <script>
-const CFG={block:"12345",reward:10,maxDaily:10,refBonus:20,refMax:6,minW:800,link:"https://t.me/Mohan999_bot/Tasks"};
+const CFG={
+ block:"12345",             // Adsgram Block ID (approval ke baad asli ID likho)
+ reward:5,                  // coins per video
+ refBonus:20,refMax:6,      // coins per referral, max referrals
+ minW:800,                  // minimum withdrawal (coins)
+ vCost:820,                 // voucher price (coins)
+ vCode:"8U95-Y3E8CQ-39MPQ", // voucher code
+ support:"YourSupportUsername", // apna Telegram username (bina @)
+ payNote:"Payout is sent to your UPI by support after verification.",
+ link:"https://t.me/Mohan999_bot/Tasks"
+};
 const tg=Telegram.WebApp;tg.ready();tg.expand();
-const REAL=CFG.block!=="12345",K="minitv_v1",$=id=>document.getElementById(id);
-let S={bal:0,total:0,vids:0,day:"",today:0,refs:0,reqs:[]};
+const REAL=CFG.block!=="12345",K="minitv_v2",$=id=>document.getElementById(id);
+let S={bal:0,total:0,vids:0,day:"",today:0,refs:0,reqs:[],vouchers:[]};
 try{Object.assign(S,JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){}
 const u=(tg.initDataUnsafe&&tg.initDataUnsafe.user)||{},uid=u.id||"guest";
-const today=()=>new Date().toDateString(),R=n=>"₹"+n;
+const today=()=>new Date().toDateString(),R=n=>n+" 🪙";
 function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
-function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2600)}
-function go(id,b){document.querySelectorAll(".tab").forEach(e=>e.classList.remove("on"));$(id).classList.add("on");
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2800)}
+function go(id){document.querySelectorAll(".tab").forEach(e=>e.classList.remove("on"));$(id).classList.add("on");
  const names=["home","tasks","refer","withdraw"];document.querySelectorAll("nav button").forEach((e,i)=>e.classList.toggle("on",names[i]===id));window.scrollTo(0,0)}
 function add(n){S.bal+=n;S.total+=n;save();render()}
 let AC=null;if(REAL){try{AC=window.Adsgram.init({blockId:CFG.block})}catch(e){}}
+function runDemo(done){const T=8000,t0=Date.now();$("da").classList.add("on");
+ const iv=setInterval(()=>{const e=Date.now()-t0,p=Math.min(100,Math.round(e/T*100));
+  $("dp").style.width=p+"%";$("dpt").textContent=p+"%";$("dt").textContent="00:0"+Math.max(0,Math.ceil((T-e)/1000));
+  if(e>=T){clearInterval(iv);$("da").classList.remove("on");done()}},200)}
 function showAd(){return new Promise((ok,no)=>{
- if(REAL){if(!AC)return no();AC.show().then(r=>r&&r.done?ok():no()).catch(no);return}
- let n=5;$("cd").textContent=n;$("ov").classList.add("on");
- const iv=setInterval(()=>{n--;$("cd").textContent=n;if(n<=0){clearInterval(iv);$("ov").classList.remove("on");ok()}},1000)})}
+ $("ld").classList.add("on");const hide=()=>$("ld").classList.remove("on");
+ if(REAL){
+  setTimeout(hide,1500);
+  if(!AC){hide();return no()}
+  AC.show().then(r=>{hide();r&&r.done?ok():no()}).catch(e=>{hide();no(e)});
+  return}
+ setTimeout(()=>{hide();runDemo(ok)},1800)})}
 let busy=false;
-async function watch(){if(busy)return;if(S.today>=CFG.maxDaily)return toast("Daily limit reached. Come back tomorrow!");
- busy=true;
+async function watch(){if(busy)return;busy=true;
  try{await showAd();S.today++;S.vids++;add(CFG.reward);toast("+"+R(CFG.reward)+" earned!")}
- catch(e){toast("Watch the full video to earn")}
+ catch(e){toast("Ad not available or not finished. Try again.")}
  busy=false;render()}
+let curCode="";
+function showV(code){curCode=code;$("vcode").textContent=code;$("vo").classList.add("on")}
+function closeV(){$("vo").classList.remove("on")}
+function copyC(){if(navigator.clipboard)navigator.clipboard.writeText(curCode).then(()=>toast("Code copied!")).catch(()=>toast(curCode));else toast(curCode)}
+function sendSup(){const m="Hi, I want to redeem my voucher.\nCode: "+curCode+"\nTelegram ID: "+uid;
+ tg.openTelegramLink("https://t.me/"+CFG.support+"?text="+encodeURIComponent(m))}
+function buyV(){if(S.bal<CFG.vCost)return toast("You need "+R(CFG.vCost));
+ const doBuy=()=>{S.bal-=CFG.vCost;S.vouchers.push({code:CFG.vCode,t:Date.now()});save();render();showV(CFG.vCode)};
+ if(tg.showConfirm)tg.showConfirm("Spend "+CFG.vCost+" coins on a voucher?",ok=>{if(ok)doBuy()});else doBuy()}
 const rl=()=>CFG.link+"?startapp=ref_"+uid;
 function copyL(){const t=rl();if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>toast("Link copied!")).catch(()=>toast(t));else toast(t)}
-function share(){tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(rl())+"&text="+encodeURIComponent("Watch videos and earn money on Mini TV Task!"))}
+function share(){tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(rl())+"&text="+encodeURIComponent("Watch videos on Mini TV Task!"))}
 function wd(){const v=$("upi").value.trim();
  if(S.bal<CFG.minW)return toast("Minimum balance is "+R(CFG.minW));
  if(!/^[\w.\-]{2,}@[\w]{2,}$/.test(v))return toast("Enter a valid UPI ID");
  S.reqs.push({amt:S.bal,upi:v,t:Date.now()});S.bal=0;save();render();toast("Withdrawal request submitted")}
 function render(){
  if(S.day!==today()){S.day=today();S.today=0}
- const left=CFG.maxDaily-S.today,btn=S.today>=CFG.maxDaily?"Come back tomorrow":"🎬 Watch Video &amp; Earn "+R(CFG.reward);
+ const btn="🎬 Watch Video &amp; Earn "+R(CFG.reward);
  $("nm").textContent=u.first_name||u.username||"User";
  $("top").textContent=R(S.bal);$("bal").textContent=R(S.bal);
  $("s1").textContent=R(S.total);$("s2").textContent=S.vids;$("s3").textContent=S.refs;
  $("chip").textContent="🎬 "+S.today+" videos watched today";
- [$("b1"),$("b2")].forEach(b=>{b.innerHTML=btn;b.disabled=left<=0});
+ $("b1").innerHTML=btn;$("b2").innerHTML=btn;
  document.querySelectorAll(".rw").forEach(e=>e.textContent=R(CFG.reward));
- $("tp").textContent=S.today+" / "+CFG.maxDaily+" today";$("pb").style.width=(S.today/CFG.maxDaily*100)+"%";
+ $("tp").textContent=S.today+" videos watched today";
+ $("vs").textContent="Redeem coins for a voucher code";$("vc").textContent=R(CFG.vCost);
+ $("vb").textContent="Buy Voucher";$("vb").disabled=S.bal<CFG.vCost;
+ $("vlist").innerHTML=S.vouchers.slice().reverse().map(v=>'<div class="vl" onclick="showV(\''+v.code+'\')"><div><b>'+v.code+'</b><br><small>'+new Date(v.t).toLocaleDateString()+'</small></div><small>Tap to view</small></div>').join("");
  $("rtxt").textContent="Earn "+R(CFG.refBonus)+" for each referral";$("rg").textContent="+"+R(CFG.refBonus);
  $("rb").textContent=R(CFG.refBonus);$("rs").textContent=S.refs+" / "+CFG.refMax+" friends joined";
  $("slots").innerHTML=Array.from({length:CFG.refMax},(_,i)=>'<span class="'+(i<S.refs?"on":"")+'">'+(i<S.refs?"✓":i+1)+'</span>').join("");
@@ -136,6 +201,7 @@ function render(){
  $("mw").textContent=R(CFG.minW);$("cur").textContent="Current: "+R(S.bal);
  const ok=S.bal>=CFG.minW;$("okm").textContent=ok?"✅":"❌";
  $("lk").textContent=ok?"✅ You can withdraw now":"🔒 Reach "+R(CFG.minW)+" balance to unlock withdrawal";
- $("wb").textContent="Withdraw "+R(S.bal);$("wb").disabled=!ok}
+ $("wb").textContent="Withdraw "+R(S.bal);$("wb").disabled=!ok;
+ $("pn").innerHTML="🕐 Processing takes 24–48 hours<br>"+CFG.payNote}
 render();
 </script></body></html>
