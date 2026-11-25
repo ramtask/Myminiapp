@@ -5,6 +5,8 @@
 <title>Mini TV Task</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <style>
 :root{--bg:#fff5f9;--pk:#ec2c7f;--pk2:#ff6fae;--ink:#2a1020;--mut:#9a7a8a;--ln:#f6d5e3}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -31,34 +33,24 @@ h2{margin:10px 0 4px}
 .ck{display:flex;align-items:center;gap:12px;padding:14px 0}
 .ck .t{flex:1}.ck b{display:block}.ck small{color:var(--mut)}.ck .m{font-size:22px}
 .lock{background:#fff0f4;border:1.5px solid #ffc2d6;color:#d4195f;border-radius:16px;padding:14px;font-weight:600;margin-top:6px;font-size:14px}
-input{width:100%;border:1.5px solid var(--ln);border-radius:14px;padding:14px;font-size:16px;margin-top:12px;outline:0;color:var(--ink)}input:focus{border-color:var(--pk)}
+input{width:100%;border:1.5px solid var(--ln);border-radius:14px;padding:14px;font-size:16px;margin-top:12px;outline:0;color:var(--ink);background:#fff}input:focus{border-color:var(--pk)}
 .note{text-align:center;color:var(--mut);font-size:13px;line-height:1.9;margin-top:18px}
-.vl{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--ln);font-size:14px}
-.vl b{letter-spacing:1px;color:var(--pk)}.vl small{color:var(--mut)}
 .tab{display:none}.tab.on{display:block}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#fffffff2;backdrop-filter:blur(12px);border-top:1.5px solid var(--ln);padding:8px 8px calc(14px + env(safe-area-inset-bottom))}
-nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-weight:700;padding:4px}nav button i{display:block;font-style:normal;font-size:24px}nav button.on{color:var(--pk)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#fffffff2;backdrop-filter:blur(12px);border-top:1.5px solid var(--ln);padding:8px 4px calc(14px + env(safe-area-inset-bottom))}
+nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-weight:700;padding:4px 0}nav button i{display:block;font-style:normal;font-size:23px}nav button.on{color:var(--pk)}
 .ovl{position:fixed;inset:0;background:#2a1020d9;display:none;place-items:center;z-index:9}.ovl.on{display:grid}
 .box{background:#fff;border-radius:24px;padding:26px;text-align:center;width:86%;max-width:340px}
 .code{font-size:24px;font-weight:900;letter-spacing:2px;color:var(--pk);background:#fff0f6;border:2px dashed var(--pk2);border-radius:14px;padding:16px 8px;margin:14px 0;word-break:break-all}
-/* Loading Ad sheet */
-#ld{position:fixed;inset:0;background:#2a1020b3;display:none;align-items:flex-end;z-index:11}#ld.on{display:flex}
-#ld .sh{background:#fff;width:100%;border-radius:28px 28px 0 0;padding:34px 20px calc(44px + env(safe-area-inset-bottom));text-align:center}
-#ld .sh h2{font-size:34px;margin:10px 0 18px;color:var(--pk)}
-.spin{width:64px;height:64px;border-radius:50%;border:6px solid #ffe0ec;border-top-color:var(--pk);margin:0 auto 18px;animation:sp 1s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-/* Demo ad screen */
-#da{position:fixed;inset:0;background:#0f1522;display:none;flex-direction:column;z-index:12;color:#fff;padding-top:env(safe-area-inset-top)}#da.on{display:flex}
-#da .seg{display:flex;gap:8px;padding:14px 16px}#da .seg i{flex:1;height:3px;background:#2b3a52;border-radius:3px;overflow:hidden}#da .seg i b{display:block;height:100%;background:#2ea6ff}
-#da .img{flex:1;margin:0;background:linear-gradient(135deg,var(--pk),var(--pk2));display:grid;place-items:center;font-size:90px}
-#da .tx{background:#1e2a3c;margin:0 16px;border-radius:20px 20px 0 0;padding:16px;margin-top:-20px;position:relative}
-#da .tx h3{margin:0 0 6px;font-size:20px}#da .tx p{margin:0;color:#c9d4e6;font-size:16px;line-height:1.4}#da .tx small{display:block;text-align:right;color:#7b8aa3;margin-top:8px}
-#da .adv{background:#1e2a3c;margin:4px 16px 0;border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:12px;color:#2ea6ff;font-size:19px}
-#da .adv span{width:44px;height:44px;border-radius:50%;background:var(--pk);display:grid;place-items:center;font-size:22px}
-#da .pg{margin:16px;height:64px;border-radius:18px;background:#7b8a98;position:relative;overflow:hidden}
-#da .pg i{position:absolute;left:0;top:0;bottom:0;width:0;background:#2ea6ff}#da .pg b{position:absolute;inset:0;display:grid;place-items:center;font-size:26px;font-weight:500}
-#da .tm{align-self:center;background:#1e2a3c;border-radius:20px;padding:8px 18px;font-size:20px;margin-bottom:calc(24px + env(safe-area-inset-bottom))}
-#toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-90px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:16px;font-weight:700;font-size:14px;transition:.3s;z-index:20;max-width:90%;text-align:center}#toast.on{transform:translate(-50%,0)}
+#toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-90px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:16px;font-weight:700;font-size:14px;transition:.3s;z-index:30;max-width:90%;text-align:center}#toast.on{transform:translate(-50%,0)}
+/* admin */
+.adm{position:fixed;inset:0;background:var(--bg);z-index:15;display:none;overflow:auto;padding:0 16px 60px}.adm.on{display:block}
+.ah{display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-size:18px}
+.ah button{background:#fff;border:1.5px solid var(--ln);border-radius:14px;padding:8px 16px;font-weight:800;color:var(--pk)}
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sum div{background:#fff;border:1.5px solid var(--ln);border-radius:16px;padding:12px;font-size:12px;color:var(--mut)}.sum b{display:block;font-size:22px;color:var(--pk)}
+.ur{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--ln);font-size:14px}.ur:first-child{border-top:0}
+.ur small{color:var(--mut);display:block;word-break:break-all}.ur .rt{text-align:right;flex:none}
+.ab{display:flex;gap:8px;margin-top:8px}.ab button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:800;color:#fff;background:var(--pk)}.ab button.g{background:#fff;color:#d4195f;border:1.5px solid #ffc2d6}
+.tg{display:inline-block;border-radius:10px;padding:2px 8px;font-size:12px;font-weight:800;background:#ffe6f0;color:var(--pk)}.tg.ok{background:#dff7e6;color:#168a3d}.tg.no{background:#eee;color:#777}
 </style></head><body>
 
 <header><div class="logo">Mini <b>TV</b> Task</div><div class="pill" id="top">0 🪙</div></header>
@@ -67,7 +59,7 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-
   <div class="hero"><small>WELCOME BACK,</small><div class="nm" id="nm">User</div>
     <small>TOTAL BALANCE</small><div class="bal" id="bal">0 🪙</div>
     <div class="st"><div><b id="s1">0</b>Total Earned</div><div><b id="s2">0</b>Videos Watched</div><div><b id="s3">0</b>Referrals</div></div>
-    <span class="chip" id="chip">🎬 0 videos watched today</span></div>
+    <span class="chip" id="chip">🎬 0 videos watched today</span> <span class="chip" id="pidc">🆔 ID: ------</span></div>
   <button class="btn" id="b1" onclick="watch()"></button>
   <h4>QUICK EARN</h4>
   <div class="card r" onclick="go('refer')"><div class="ic">👥</div><div class="i"><b>Refer a Friend</b><small id="rtxt"></small></div><div class="gain" id="rg"></div></div>
@@ -78,8 +70,7 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-
   <div class="card"><div class="r"><div class="ic">📺</div><div class="i"><b>Watch Video, Earn <span class="rw"></span></b><small id="tp">0 videos watched today</small></div></div>
     <button class="btn" id="b2" onclick="watch()" style="margin-top:14px"></button></div>
   <div class="card"><div class="r"><div class="ic">🎟️</div><div class="i"><b>Reward Voucher</b><small id="vs"></small></div><div class="gain" id="vc"></div></div>
-    <button class="btn" id="vb" onclick="buyV()" style="margin-top:14px"></button>
-    <div id="vlist"></div></div>
+    <button class="btn" id="vb" onclick="buyV()" style="margin-top:14px"></button></div>
 </section>
 
 <section id="refer" class="tab">
@@ -92,7 +83,7 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-
 </section>
 
 <section id="withdraw" class="tab">
-  <div class="card"><h2 style="margin:0">💸 Withdraw Earnings</h2><small style="color:var(--mut)">Transfer your balance directly to UPI</small>
+  <div class="card"><h2 style="margin:0">💸 Withdraw Earnings</h2><small style="color:var(--mut)">Request a UPI payout</small>
     <div class="ck" style="margin-top:12px"><div class="m">💰</div><div class="t"><b>Minimum <span id="mw"></span> balance</b><small id="cur"></small></div><div class="m" id="okm">❌</div></div>
     <div class="lock" id="lk"></div>
     <input id="upi" placeholder="Your UPI ID (name@bank)" autocomplete="off">
@@ -100,108 +91,265 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-
   <div class="note" id="pn"></div>
 </section>
 
+<section id="profile" class="tab">
+  <h2>Profile</h2>
+  <div class="card"><div class="r"><div class="ic">🙂</div><div class="i"><b id="pfn">User</b><small id="pfid"></small></div></div></div>
+  <div class="card"><b>🎁 Bonus Code</b><br><small style="color:var(--mut)">Have a code? Enter it below.</small>
+    <input id="bc" placeholder="Enter bonus code" inputmode="numeric" autocomplete="off">
+    <button class="btn" onclick="applyCode()">Apply Code</button></div>
+</section>
+
 <nav>
   <button class="on" onclick="go('home')"><i>🏠</i>Home</button>
   <button onclick="go('tasks')"><i>📺</i>Tasks</button>
   <button onclick="go('refer')"><i>👥</i>Refer</button>
   <button onclick="go('withdraw')"><i>💸</i>Withdraw</button>
+  <button onclick="go('profile')"><i>🙂</i>Profile</button>
 </nav>
 
-<div id="ld"><div class="sh"><div style="font-size:64px">🎬</div><h2>Loading Ad...</h2><div class="spin"></div><small style="color:#9a7a8a;font-size:16px">Connecting to ad network…</small></div></div>
-
-<div id="da"><div class="seg"><i><b style="width:100%"></b></i><i><b style="width:50%"></b></i><i></i></div>
-  <div class="img">📺</div>
-  <div class="tx"><h3>Demo Ad</h3><p>Your real ads will appear here after Adsgram approval.</p><small>Ad · Demo</small></div>
-  <div class="adv"><span>🎯</span>Demo Advertiser</div>
-  <div class="pg"><i id="dp"></i><b id="dpt">0%</b></div>
-  <div class="tm" id="dt">00:08</div></div>
-
-<div class="ovl" id="vo"><div class="box"><h2 style="margin:0">🎟️ Your Voucher Code</h2>
+<div class="ovl" id="vo"><div class="box"><h2 style="margin:0">🎟️ Voucher requested</h2>
   <div class="code" id="vcode"></div>
-  <small style="color:#9a7a8a">Send this code to support to receive your payout.</small>
-  <button class="btn" onclick="sendSup()">Send to Support</button>
-  <button class="btn o" onclick="copyC()" style="margin-top:10px">Copy Code</button>
+  <small style="color:#9a7a8a">Send this request ID to support. You will get your voucher after verification.</small>
+  <button class="btn" onclick="sendSup()">Message Support</button>
   <button class="btn o" onclick="closeV()" style="margin-top:10px;border-color:#ecd5df;color:#9a7a8a">Close</button></div></div>
+
+<!-- ADMIN PANEL -->
+<div class="adm" id="adm">
+  <div class="ah"><b>🛠 Admin Panel</b><button onclick="admClose()">Close</button></div>
+  <div id="apanel">
+    <div class="card"><b>🔍 Search user</b>
+      <input id="asq" placeholder="User ID (6 digit), Telegram ID or @username" autocomplete="off" oninput="admSearch()">
+      <div id="asr" style="margin-top:8px"></div></div>
+    <div class="sum" id="asum"></div>
+    <button class="btn o" onclick="admLoad()" style="margin-top:12px">🔄 Refresh</button>
+    <h4>WITHDRAW / VOUCHER REQUESTS</h4>
+    <div class="card" id="areqs"></div>
+    <h4>WALLET: ADD / CUT COINS</h4>
+    <div class="card">
+      <input id="aid" placeholder="User ID (6 digit) or tap a user" inputmode="numeric" autocomplete="off">
+      <input id="aamt" placeholder="Coins" inputmode="numeric" autocomplete="off">
+      <div class="ab"><button onclick="wal(1)">➕ Add</button><button class="g" onclick="wal(-1)">➖ Cut</button></div>
+    </div>
+    <h4>USERS (TODAY ADS)</h4>
+    <div class="card" id="ausers"></div>
+    <button class="btn o" onclick="admOut()">Close panel</button>
+  </div>
+</div>
 <div id="toast"></div>
 
 <script>
+/* ====== SETTINGS ====== */
 const CFG={
- block:"61814",             // Adsgram Block ID (approval ke baad asli ID likho)
- reward:5,                  // coins per video
- refBonus:20,refMax:6,      // coins per referral, max referrals
- minW:800,                  // minimum withdrawal (coins)
- vCost:820,                 // voucher price (coins)
- vCode:"8U95-Y3E8CQ-39MPQ", // voucher code
- support:"YourSupportUsername", // apna Telegram username (bina @)
+ block:"61814",              // Adsgram Block ID (partner dashboard > Show code se match kar)
+ reward:5,                   // coins per video (database rules me bhi 5 hai)
+ refBonus:20,refMax:6,       // coins per referral, max referrals (rules me bhi 20 / 6)
+ minW:800,                   // minimum withdrawal / voucher (rules me bhi 800)
+ vCost:820,                  // voucher price (coins)
+ dailyMax:100,               // max videos per day (rules me bhi 100)
+ gap:12000,                  // do ads ke beech min wait (ms)
+ support:"probo999",         // support Telegram username (bina @)
  payNote:"Payout is sent to your UPI by support after verification.",
- link:"https://t.me/Mohan999_bot/Tasks"
+ link:"https://t.me/Mohan999_bot/Tasks",   // BotFather /myapps wala link
+ adminCode:"9045"            // Profile > Bonus Code me ye daalne par admin login khulta h
 };
+/* ====== FIREBASE: apna config yahan paste kar ====== */
+const FBCFG={
+ apiKey:"AIzaSyBssz02KCK9devcmkOeum2fqz4P6Sr1dmo",
+ authDomain:"mini-tv-tasks.firebaseapp.com",
+ databaseURL:"https://mini-tv-tasks-default-rtdb.asia-southeast1.firebasedatabase.app",
+ projectId:"mini-tv-tasks",
+ appId:"1:474849789734:web:ee91c02c925027050a23e7"
+};
+
 const tg=Telegram.WebApp;tg.ready();tg.expand();
-const REAL=CFG.block!=="12345",K="minitv_v2",$=id=>document.getElementById(id);
-let S={bal:0,total:0,vids:0,day:"",today:0,refs:0,reqs:[],vouchers:[]};
-try{Object.assign(S,JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){}
-const u=(tg.initDataUnsafe&&tg.initDataUnsafe.user)||{},uid=u.id||"guest";
-const today=()=>new Date().toDateString(),R=n=>n+" 🪙";
-function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+const $=id=>document.getElementById(id),R=n=>n+" 🪙",today=()=>new Date().toDateString();
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const u=(tg.initDataUnsafe&&tg.initDataUnsafe.user)||{},uid=String(u.id||"guest");
+let S={bal:0,total:0,vids:0,day:"",today:0,refPaid:0,refs:0},ready=false,busy=false,lastAd=0,curReq="",db=null,TS=null,curUser=null,AD=null;
+const FBOK=FBCFG.apiKey.indexOf("PASTE")<0;
+if(FBOK){firebase.initializeApp(FBCFG);db=firebase.database();TS=firebase.database.ServerValue.TIMESTAMP}
+let AC=null;try{AC=window.Adsgram.init({blockId:CFG.block})}catch(e){}
+
+let ADM={users:[],reqs:[]};
 function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2800)}
 function go(id){document.querySelectorAll(".tab").forEach(e=>e.classList.remove("on"));$(id).classList.add("on");
- const names=["home","tasks","refer","withdraw"];document.querySelectorAll("nav button").forEach((e,i)=>e.classList.toggle("on",names[i]===id));window.scrollTo(0,0)}
-function add(n){S.bal+=n;S.total+=n;save();render()}
-let AC=null;if(REAL){try{AC=window.Adsgram.init({blockId:CFG.block})}catch(e){}}
-function runDemo(done){const T=8000,t0=Date.now();$("da").classList.add("on");
- const iv=setInterval(()=>{const e=Date.now()-t0,p=Math.min(100,Math.round(e/T*100));
-  $("dp").style.width=p+"%";$("dpt").textContent=p+"%";$("dt").textContent="00:0"+Math.max(0,Math.ceil((T-e)/1000));
-  if(e>=T){clearInterval(iv);$("da").classList.remove("on");done()}},200)}
-function showAd(){return new Promise((ok,no)=>{
- $("ld").classList.add("on");const hide=()=>$("ld").classList.remove("on");
- if(REAL){
-  setTimeout(hide,1500);
-  if(!AC){hide();return no()}
-  AC.show().then(r=>{hide();r&&r.done?ok():no()}).catch(e=>{hide();no(e)});
-  return}
- setTimeout(()=>{hide();runDemo(ok)},1800)})}
-let busy=false;
-async function watch(){if(busy)return;busy=true;
- try{await showAd();S.today++;S.vids++;add(CFG.reward);toast("+"+R(CFG.reward)+" earned!")}
- catch(e){toast("Ad not available or not finished. Try again.")}
+ const names=["home","tasks","refer","withdraw","profile"];document.querySelectorAll("nav button").forEach((e,i)=>e.classList.toggle("on",names[i]===id));window.scrollTo(0,0)}
+
+async function load(){const s=await db.ref("users/"+uid).once("value");if(s.exists())Object.assign(S,s.val())}
+async function boot(){
+ render();
+ if(!FBOK)return toast("Database config missing");
+ if(!/^\d{5,15}$/.test(uid))return toast("Open this app from Telegram");
+ try{
+  const ref=db.ref("users/"+uid);let snap=await ref.once("value");
+  if(!snap.exists()){
+   const up={},o={bal:0,total:0,vids:0,today:0,day:today(),refPaid:0,last:TS};
+   const sp=(tg.initDataUnsafe&&tg.initDataUnsafe.start_param)||"",m=sp.match(/^ref_(\d{5,15})$/);
+   if(m&&m[1]!==uid){const rs=await db.ref("users/"+m[1]).once("value");if(rs.exists()){o.refBy=m[1];up["ref/"+m[1]+"/"+uid]=true}}
+   up["users/"+uid]=o;await db.ref().update(up);
+  }
+  await load();
+  const nm=(u.first_name||u.username||"").slice(0,40),un=(u.username||"").slice(0,40),nu={};
+  if(nm&&S.name!==nm)nu.name=nm;if(un&&S.un!==un)nu.un=un;
+  if(Object.keys(nu).length){try{await ref.update(nu);Object.assign(S,nu)}catch(e){}}
+  if(!S.pid)await assignPid();
+  await claimRefs();ready=true;
+  ref.on("value",s=>{if(s.exists()){Object.assign(S,s.val());render()}});   // admin ne coin badle to turant dikhe
+ }catch(e){toast("Server error. Reopen the app.")}
+ render()}
+async function assignPid(){
+ try{
+  const tr=await db.ref("meta/next").transaction(v=>v==null?100000:(v>=999999?undefined:v+1));
+  if(!tr.committed)return;
+  const p=tr.snapshot.val();
+  await db.ref("users/"+uid+"/pid").set(p);S.pid=p;
+ }catch(e){}}
+async function claimRefs(){
+ const c=(await db.ref("ref/"+uid).once("value")).numChildren();S.refs=c;
+ let n=Math.min(c,CFG.refMax)-(S.refPaid||0);
+ while(n-->0){
+  const up={bal:S.bal+CFG.refBonus,total:S.total+CFG.refBonus,refPaid:S.refPaid+1};
+  try{await db.ref("users/"+uid).update(up);Object.assign(S,up);toast("+"+R(CFG.refBonus)+" referral bonus!")}catch(e){break}
+ }}
+
+/* ====== ADS (same as before) ====== */
+async function watch(){
+ if(busy)return;if(!ready)return toast("Loading… try again");
+ if(S.day!==today()){S.day=today();S.today=0}
+ if(S.today>=CFG.dailyMax)return toast("Daily limit reached. Come back tomorrow.");
+ if(Date.now()-lastAd<CFG.gap)return toast("Wait a few seconds");
+ if(!AC)return toast("Ad not available. Try again.");
+ busy=true;
+ try{
+  const r=await AC.show();
+  if(!(r&&r.done))throw 0;
+  const up={bal:S.bal+CFG.reward,total:S.total+CFG.reward,vids:S.vids+1,today:S.today+1,day:today(),last:TS};
+  await db.ref("users/"+uid).update(up);
+  delete up.last;Object.assign(S,up);lastAd=Date.now();toast("+"+R(CFG.reward)+" earned!");
+ }catch(e){toast("Ad not finished or not available. Try again.");try{await load()}catch(x){}}
  busy=false;render()}
-let curCode="";
-function showV(code){curCode=code;$("vcode").textContent=code;$("vo").classList.add("on")}
+
+function showV(id){curReq=id;$("vcode").textContent=id;$("vo").classList.add("on")}
 function closeV(){$("vo").classList.remove("on")}
-function copyC(){if(navigator.clipboard)navigator.clipboard.writeText(curCode).then(()=>toast("Code copied!")).catch(()=>toast(curCode));else toast(curCode)}
-function sendSup(){const m="Hi, I want to redeem my voucher.\nCode: "+curCode+"\nTelegram ID: "+uid;
+function sendSup(){const m="Hi, I want to redeem my voucher.\nRequest ID: "+curReq+"\nTelegram ID: "+uid;
  tg.openTelegramLink("https://t.me/"+CFG.support+"?text="+encodeURIComponent(m))}
-function buyV(){if(S.bal<CFG.vCost)return toast("You need "+R(CFG.vCost));
- const doBuy=()=>{S.bal-=CFG.vCost;S.vouchers.push({code:CFG.vCode,t:Date.now()});save();render();showV(CFG.vCode)};
- if(tg.showConfirm)tg.showConfirm("Spend "+CFG.vCost+" coins on a voucher?",ok=>{if(ok)doBuy()});else doBuy()}
+async function sendReq(type,amt,upi){
+ if(busy)return;busy=true;
+ try{
+  const key=db.ref("reqs/"+uid).push().key,up={},rq={type:type,amt:amt,t:TS};
+  up["users/"+uid+"/bal"]=S.bal-amt;up["reqs/"+uid+"/"+key]=rq;
+  await db.ref().update(up);S.bal-=amt;render();busy=false;return key.slice(-8).toUpperCase()+"-"+uid;
+ }catch(e){busy=false;toast("Request failed. Try again.");try{await load()}catch(x){}render();return null}}
+function buyV(){if(!ready)return;if(S.bal<CFG.vCost)return toast("You need "+R(CFG.vCost));
+ const go2=async()=>{const id=await sendReq("voucher",CFG.vCost);if(id)showV(id)};
+ if(tg.showConfirm)tg.showConfirm("Spend "+CFG.vCost+" coins on a voucher?",ok=>{if(ok)go2()});else go2()}
 const rl=()=>CFG.link+"?startapp=ref_"+uid;
 function copyL(){const t=rl();if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>toast("Link copied!")).catch(()=>toast(t));else toast(t)}
 function share(){tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(rl())+"&text="+encodeURIComponent("Watch videos on Mini TV Task!"))}
-function wd(){const v=$("upi").value.trim();
+async function wd(){const v=$("upi").value.trim();if(!ready)return;
  if(S.bal<CFG.minW)return toast("Minimum balance is "+R(CFG.minW));
  if(!/^[\w.\-]{2,}@[\w]{2,}$/.test(v))return toast("Enter a valid UPI ID");
- S.reqs.push({amt:S.bal,upi:v,t:Date.now()});S.bal=0;save();render();toast("Withdrawal request submitted")}
+ const amt=S.bal,id=await sendReq("withdraw",amt,v);
+ if(id){toast("Request submitted. Send the message to support.");
+  tg.openTelegramLink("https://t.me/"+CFG.support+"?text="+encodeURIComponent("Withdraw request\nAmount: "+amt+" coins\nUPI: "+v+"\nRequest ID: "+id+"\nTelegram ID: "+uid))}}
+
+/* ====== BONUS CODE + ADMIN ====== */
+function applyCode(){const c=$("bc").value.trim();$("bc").value="";
+ if(c===CFG.adminCode)return admOpen();
+ toast("Invalid code")}
+function admOpen(){
+ if(!FBOK)return toast("Database config missing");
+ $("adm").classList.add("on");admLoad()}
+function admClose(){$("adm").classList.remove("on")}
+function admOut(){admClose()}
+function admSearch(){
+ const q=$("asq").value.trim().toLowerCase().replace("@",""),o=$("asr"),td=today();
+ if(!q){o.innerHTML="";return}
+ const m=ADM.users.filter(x=>String(x.pid||"")===q||x.id===q||(x.un||"").toLowerCase()===q||(q.length>=3&&(x.name||"").toLowerCase().includes(q))).slice(0,5);
+ o.innerHTML=m.map(x=>{const rq=ADM.reqs.filter(r=>r.uid===x.id).length;
+  return '<div class="ur" data-a="pick" data-u="'+esc(x.id)+'"><div><b>'+esc(x.name||"User")+' 🆔 '+esc(x.pid||"-")+'</b>'+
+  '<small>Telegram ID '+esc(x.id)+(x.un?' | @'+esc(x.un):'')+'</small>'+
+  '<small>Videos watched: '+esc(x.vids||0)+' | Today: '+(x.day===td?esc(x.today||0):0)+' | Total earned: '+esc(x.total||0)+'</small>'+
+  '<small>Referrals paid: '+esc(x.refPaid||0)+' | Requests: '+rq+'</small></div>'+
+  '<div class="rt"><b>'+esc(x.bal||0)+' 🪙</b><small>tap to select</small></div></div>'}).join("")||'<small style="color:var(--mut)">User not found</small>'}
+async function admLoad(){
+ try{
+  const rs=await Promise.all([db.ref("users").once("value"),db.ref("reqs").once("value")]);
+  const users=[],reqs=[];
+  rs[0].forEach(c=>{const v=c.val();v.id=c.key;users.push(v)});
+  rs[1].forEach(up=>{up.forEach(r=>{const v=r.val();v.uid=up.key;v.key=r.key;reqs.push(v)})});
+  ADM.users=users;ADM.reqs=reqs;
+  const nameOf={};users.forEach(x=>{nameOf[x.id]=x});
+  const td=today(),cnt=x=>x.day===td?(x.today||0):0;
+  let ads=0,active=0;users.forEach(x=>{const c=cnt(x);ads+=c;if(c>0)active++});
+  const pend=reqs.filter(r=>!r.status);
+  $("asum").innerHTML=
+   '<div><b>'+users.length+'</b>Total users</div>'+
+   '<div><b>'+active+'</b>Active today</div>'+
+   '<div><b>'+ads+'</b>Ads watched today</div>'+
+   '<div><b>'+pend.length+'</b>Pending requests</div>';
+  reqs.sort((a,b)=>(b.t||0)-(a.t||0));
+  $("areqs").innerHTML=reqs.slice(0,60).map(r=>{
+   const us=nameOf[r.uid]||{},st=r.status==="paid"?'<span class="tg ok">paid</span>':r.status==="rejected"?'<span class="tg no">rejected</span>':'<span class="tg">pending</span>';
+   const who=esc(us.name||"User")+' 🆔 '+esc(us.pid||"-")+(us.un?' (@'+esc(us.un)+')':'');
+   return '<div class="ur"><div><b>'+(r.type==="voucher"?"🎟️ Voucher":"💸 Withdraw")+' '+esc(r.amt)+' 🪙</b>'+
+    '<small>'+who+' | ID '+esc(r.uid)+'</small>'+    '<small>'+(r.t?new Date(r.t).toLocaleString():'')+'</small>'+
+    (r.status?'':'<div class="ab"><button data-a="paid" data-u="'+esc(r.uid)+'" data-k="'+esc(r.key)+'">✅ Paid</button><button class="g" data-a="rej" data-u="'+esc(r.uid)+'" data-k="'+esc(r.key)+'" data-m="'+esc(r.amt)+'">❌ Reject + Refund</button></div>')+
+    '</div><div class="rt">'+st+'</div></div>'}).join("")||'<small style="color:var(--mut)">No requests yet</small>';
+  users.sort((a,b)=>cnt(b)-cnt(a)||(b.bal||0)-(a.bal||0));
+  $("ausers").innerHTML=users.slice(0,150).map(x=>
+   '<div class="ur" data-a="pick" data-u="'+esc(x.id)+'"><div><b>'+esc(x.name||"User")+' 🆔 '+esc(x.pid||"-")+'</b>'+
+   '<small>ID '+esc(x.id)+(x.un?' | @'+esc(x.un):'')+'</small><small>Total videos: '+esc(x.vids||0)+'</small></div>'+
+   '<div class="rt"><b>'+cnt(x)+' ads today</b><small>'+esc(x.bal||0)+' 🪙</small></div></div>').join("")||'<small style="color:var(--mut)">No users yet</small>';
+ admSearch();
+ }catch(e){toast("Could not load data. Check rules/config.")}}
+async function admAct(e){
+ const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a,id=b.dataset.u;
+ try{
+  if(a==="pick"){$("aid").value=id;$("aid").scrollIntoView({behavior:"smooth",block:"center"});$("aamt").focus();return}
+  if(a==="paid"){await db.ref("reqs/"+id+"/"+b.dataset.k+"/status").set("paid");toast("Marked paid")}
+  if(a==="rej"){
+   const bs=await db.ref("users/"+id+"/bal").once("value"),up={};
+   up["reqs/"+id+"/"+b.dataset.k+"/status"]="rejected";
+   up["users/"+id+"/bal"]=(bs.val()||0)+Number(b.dataset.m);
+   await db.ref().update(up);toast("Rejected, coins refunded")}
+  admLoad();
+ }catch(x){toast("Failed. Check admin access.")}}
+$("areqs").addEventListener("click",admAct);$("asr").addEventListener("click",admAct);$("ausers").addEventListener("click",admAct);
+async function wal(sign){
+ let id=$("aid").value.trim();const n=parseInt($("aamt").value,10);
+ const fu=ADM.users.find(x=>String(x.pid)===id);if(fu)id=fu.id;
+ if(!/^\d{5,15}$/.test(id)||!(n>0))return toast("Enter valid ID and coins");
+ try{
+  const s=await db.ref("users/"+id+"/bal").once("value");if(!s.exists())return toast("User not found");
+  const nb=Math.min(100000,Math.max(0,s.val()+sign*n));
+  await db.ref("users/"+id+"/bal").set(nb);
+  toast((sign>0?"Added. ":"Cut. ")+"New balance: "+nb);$("aamt").value="";admLoad();
+ }catch(x){toast("Failed. Check admin access.")}}
+
 function render(){
  if(S.day!==today()){S.day=today();S.today=0}
  const btn="🎬 Watch Video &amp; Earn "+R(CFG.reward);
  $("nm").textContent=u.first_name||u.username||"User";
+ $("pfn").textContent=u.first_name||u.username||"User";$("pfid").textContent="ID: "+(S.pid||"------")+" | Balance "+R(S.bal);
+ $("pidc").textContent="🆔 ID: "+(S.pid||"------");
  $("top").textContent=R(S.bal);$("bal").textContent=R(S.bal);
- $("s1").textContent=R(S.total);$("s2").textContent=S.vids;$("s3").textContent=S.refs;
+ $("s1").textContent=R(S.total);$("s2").textContent=S.vids;$("s3").textContent=S.refs||0;
  $("chip").textContent="🎬 "+S.today+" videos watched today";
  $("b1").innerHTML=btn;$("b2").innerHTML=btn;
  document.querySelectorAll(".rw").forEach(e=>e.textContent=R(CFG.reward));
- $("tp").textContent=S.today+" videos watched today";
- $("vs").textContent="Redeem coins for a voucher code";$("vc").textContent=R(CFG.vCost);
+ $("tp").textContent=S.today+" / "+CFG.dailyMax+" videos watched today";
+ $("vs").textContent="Redeem coins, support sends your code";$("vc").textContent=R(CFG.vCost);
  $("vb").textContent="Buy Voucher";$("vb").disabled=S.bal<CFG.vCost;
- $("vlist").innerHTML=S.vouchers.slice().reverse().map(v=>'<div class="vl" onclick="showV(\''+v.code+'\')"><div><b>'+v.code+'</b><br><small>'+new Date(v.t).toLocaleDateString()+'</small></div><small>Tap to view</small></div>').join("");
+ const rf=Math.min(S.refs||0,CFG.refMax);
  $("rtxt").textContent="Earn "+R(CFG.refBonus)+" for each referral";$("rg").textContent="+"+R(CFG.refBonus);
- $("rb").textContent=R(CFG.refBonus);$("rs").textContent=S.refs+" / "+CFG.refMax+" friends joined";
- $("slots").innerHTML=Array.from({length:CFG.refMax},(_,i)=>'<span class="'+(i<S.refs?"on":"")+'">'+(i<S.refs?"✓":i+1)+'</span>').join("");
+ $("rb").textContent=R(CFG.refBonus);$("rs").textContent=rf+" / "+CFG.refMax+" friends joined";
+ $("slots").innerHTML=Array.from({length:CFG.refMax},(_,i)=>'<span class="'+(i<rf?"on":"")+'">'+(i<rf?"✓":i+1)+'</span>').join("");
  $("lnk").textContent=rl();
  $("mw").textContent=R(CFG.minW);$("cur").textContent="Current: "+R(S.bal);
  const ok=S.bal>=CFG.minW;$("okm").textContent=ok?"✅":"❌";
  $("lk").textContent=ok?"✅ You can withdraw now":"🔒 Reach "+R(CFG.minW)+" balance to unlock withdrawal";
  $("wb").textContent="Withdraw "+R(S.bal);$("wb").disabled=!ok;
  $("pn").innerHTML="🕐 Processing takes 24–48 hours<br>"+CFG.payNote}
-render();
+boot();
 </script></body></html>
