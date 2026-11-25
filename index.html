@@ -1,90 +1,144 @@
 <!DOCTYPE html>
-<html lang="hi"><head>
+<html lang="en"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>My Tasks</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <style>
-:root{--bg:#0f172a;--card:#1e293b;--tx:#f1f5f9;--mut:#94a3b8;--ac:#f97316}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,Segoe UI,sans-serif;padding:16px 16px 90px}
-h2{margin:0 0 14px}
-.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px}
-.big{font-size:44px;font-weight:800;color:var(--ac);text-align:center;margin:6px 0}
-.mut{color:var(--mut);font-size:13px;text-align:center}
-.btn{width:100%;border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:700;color:#fff;background:var(--ac);margin-top:10px}
-.btn.alt{background:#334155}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.row small{color:var(--mut);display:block;margin-top:2px}
-.row .btn{width:auto;margin:0;padding:10px 16px;font-size:14px}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);padding:8px 8px 20px}
-nav button{flex:1;background:none;border:0;color:var(--mut);font-size:14px;padding:10px;font-weight:600}
-nav button.on{color:var(--ac)}
+:root{--bg:#0b1020;--card:#151c33;--card2:#1c2545;--tx:#f4f6ff;--mut:#8f9bc4;--ac:#ff8a1f;--ac2:#ffb347;--ok:#22c55e}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:radial-gradient(120% 60% at 50% -10%,#1d2a5c 0%,var(--bg) 60%);color:var(--tx);font-family:-apple-system,"Segoe UI",Roboto,sans-serif;padding:16px 16px 110px;min-height:100vh}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#ff5e62);display:grid;place-items:center;font-weight:800;font-size:18px}
+.top b{display:block;font-size:16px}.top small{color:var(--mut)}
+.lvl{margin-left:auto;background:var(--card2);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700;color:var(--ac2)}
+.bal{background:linear-gradient(135deg,#ff8a1f,#ff5e62);border-radius:22px;padding:22px;text-align:center;box-shadow:0 10px 30px #ff5e6233}
+.bal small{opacity:.9;font-size:13px;letter-spacing:.5px}
+.bal .n{font-size:54px;font-weight:900;line-height:1.1;margin:4px 0}
+.bal .s{font-size:13px;opacity:.9}
+.card{background:var(--card);border-radius:18px;padding:16px;margin-top:14px}
+.card h3{margin:0 0 4px;font-size:17px}.card p{margin:0;color:var(--mut);font-size:13px}
+.bar{height:10px;background:#0b1020;border-radius:6px;overflow:hidden;margin:12px 0 6px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .4s}
+.btn{width:100%;border:0;border-radius:14px;padding:15px;font-size:16px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--ac),#ff5e62);margin-top:10px}
+.btn:active{transform:scale(.98)}.btn:disabled{background:#2a3358;color:var(--mut)}
+.days{display:flex;gap:6px;margin-top:12px}
+.days span{flex:1;text-align:center;padding:8px 0;border-radius:10px;background:var(--card2);font-size:12px;color:var(--mut)}
+.days span.on{background:var(--ok);color:#fff;font-weight:700}
+.t{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:16px;padding:14px;margin-top:12px}
+.ic{width:44px;height:44px;border-radius:12px;background:var(--card2);display:grid;place-items:center;font-size:22px;flex:none}
+.t div.i{flex:1;min-width:0}.t b{display:block;font-size:15px}.t small{color:var(--mut);font-size:12px}
+.t .btn{width:auto;margin:0;padding:10px 16px;font-size:14px}
+.rw{color:var(--ac2);font-weight:800;font-size:13px}
+h2{margin:6px 0 0;font-size:22px}
 .tab{display:none}.tab.on{display:block}
-#toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#000c;padding:10px 18px;border-radius:20px;font-size:14px;opacity:0;transition:.3s;pointer-events:none;max-width:90%;text-align:center}
-#toast.on{opacity:1}
+.row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #232d52}.row:last-child{border:0}.row span{color:var(--mut)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#10172cf2;backdrop-filter:blur(10px);padding:8px 10px calc(14px + env(safe-area-inset-bottom));border-top:1px solid #232d52}
+nav button{flex:1;background:none;border:0;color:var(--mut);font-size:12px;font-weight:700;padding:6px}
+nav button i{display:block;font-style:normal;font-size:22px}nav button.on{color:var(--ac)}
+#ov{position:fixed;inset:0;background:#000d;display:none;place-items:center;z-index:9}
+#ov.on{display:grid}
+#ov .box{background:var(--card);border-radius:20px;padding:28px;text-align:center;width:80%;max-width:320px}
+#ov .c{font-size:56px;font-weight:900;color:var(--ac)}
+#toast{position:fixed;top:16px;left:50%;transform:translate(-50%,-80px);background:#fff;color:#111;padding:12px 18px;border-radius:14px;font-weight:700;font-size:14px;transition:.3s;z-index:10;max-width:90%;text-align:center}
+#toast.on{transform:translate(-50%,0)}
 </style></head><body>
 
+<div class="top"><div class="av" id="av">U</div><div><b id="nm">User</b><small>Watch ads. Earn coins.</small></div><div class="lvl" id="lv">Lv 1</div></div>
+
 <section id="home" class="tab on">
-  <h2>Home</h2>
-  <div class="card"><div class="mut">Aapke coins</div><div class="big" id="coins">0</div>
-    <div class="mut">Aaj ke ads: <span id="adsLeft">0</span>/10</div>
-    <button class="btn" onclick="watchAd()">Ad dekho, 10 coins pao</button>
-    <button class="btn alt" onclick="dailyBonus()">Daily bonus lo (+50)</button>
+  <div class="bal"><small>TOTAL BALANCE</small><div class="n" id="coins">0</div><div class="s">coins</div></div>
+  <div class="card">
+    <h3>Watch Ad &amp; Earn</h3><p>Watch a full ad to earn <b class="rw">+10 coins</b></p>
+    <div class="bar"><i id="pb"></i></div>
+    <p id="pt">0 / 10 ads watched today</p>
+    <button class="btn" id="adBtn" onclick="watchAd()">&#9654; Watch Ad</button>
+  </div>
+  <div class="card">
+    <h3>Daily Check-in</h3><p id="streakTxt">Come back every day to grow your streak</p>
+    <div class="days" id="days"></div>
+    <button class="btn" id="ciBtn" onclick="checkIn()">Claim Daily Reward</button>
   </div>
 </section>
 
 <section id="tasks" class="tab">
-  <h2>Tasks</h2>
-  <div class="card row"><div>Daily bonus<small>Har 24 ghante me ek baar, +50 coins</small></div><button class="btn" onclick="dailyBonus()">Lo</button></div>
-  <div class="card row"><div>Ad dekho<small>Har ad par +10 coins, roz 10 tak</small></div><button class="btn" onclick="watchAd()">Dekho</button></div>
-  <div class="card row"><div>Dost ko bulao<small>App ka link share karo</small></div><button class="btn" onclick="invite()">Share</button></div>
+  <h2>Tasks</h2><div id="list"></div>
 </section>
 
 <section id="profile" class="tab">
   <h2>Profile</h2>
-  <div class="card"><div class="mut">Naam</div><div id="uname" style="text-align:center;font-size:20px;font-weight:700">-</div></div>
-  <div class="card"><div class="row"><span>Abhi ke coins</span><b id="p1">0</b></div>
-    <div class="row" style="margin-top:10px"><span>Kul kamaye coins</span><b id="p2">0</b></div>
-    <div class="row" style="margin-top:10px"><span>Aaj ke ads</span><b id="p3">0</b></div></div>
-  <div class="mut">Coins abhi sirf is phone me save hain.</div>
+  <div class="card">
+    <div class="row"><span>Balance</span><b id="p1">0</b></div>
+    <div class="row"><span>Total earned</span><b id="p2">0</b></div>
+    <div class="row"><span>Ads watched today</span><b id="p3">0</b></div>
+    <div class="row"><span>Check-in streak</span><b id="p4">0 days</b></div>
+  </div>
+  <button class="btn" onclick="invite()">Invite Friends</button>
 </section>
 
 <nav>
-  <button class="on" onclick="tab('home',this)">Home</button>
-  <button onclick="tab('tasks',this)">Tasks</button>
-  <button onclick="tab('profile',this)">Profile</button>
+  <button class="on" onclick="tab('home',this)"><i>&#127968;</i>Home</button>
+  <button onclick="tab('tasks',this)"><i>&#9989;</i>Tasks</button>
+  <button onclick="tab('profile',this)"><i>&#128100;</i>Profile</button>
 </nav>
+
+<div id="ov"><div class="box"><div>Demo ad playing...</div><div class="c" id="cd">5</div><small style="color:#8f9bc4">Real ads will play after Adsgram approval</small></div></div>
 <div id="toast"></div>
 
 <script>
 const tg=Telegram.WebApp;tg.ready();tg.expand();
-const BLOCK_ID="12345"; // Adsgram se approval ke baad yahan asli Block ID likhna
-const MAX_ADS=10,AD_COINS=10,DAILY=50,K="mytasks_v1";
-let S={coins:0,total:0,ads:0,adsDay:"",bonusAt:0};
+const BLOCK_ID="12345"; // Paste your real Adsgram Block ID here after approval
+const REAL=BLOCK_ID!=="12345";
+const MAX=10,AD=10,K="mytasks_v2",LINK="https://t.me/Mohan999_bot/Tasks";
+const MS=[{id:"m5",need:5,bonus:50},{id:"m10",need:10,bonus:100}];
+let S={coins:0,total:0,ads:0,day:"",streak:0,last:"",claimed:{}};
 try{Object.assign(S,JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){}
 const $=id=>document.getElementById(id);
 const today=()=>new Date().toDateString();
+const yest=()=>new Date(Date.now()-864e5).toDateString();
 function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
-function roll(){if(S.adsDay!==today()){S.adsDay=today();S.ads=0}}
-function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2500)}
+function roll(){if(S.day!==today()){S.day=today();S.ads=0;S.claimed={}}}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2600)}
 function add(n){S.coins+=n;S.total+=n;save();render()}
-function render(){roll();$("coins").textContent=S.coins;$("adsLeft").textContent=S.ads;
- $("p1").textContent=S.coins;$("p2").textContent=S.total;$("p3").textContent=S.ads+"/"+MAX_ADS;
- const u=tg.initDataUnsafe&&tg.initDataUnsafe.user;$("uname").textContent=u?(u.first_name||u.username||"User"):"User"}
+function nextStreak(){return S.last===today()?S.streak:(S.last===yest()?S.streak+1:1)}
+function ciReward(){return 20+Math.min(nextStreak(),7)*10}
 function tab(id,b){document.querySelectorAll(".tab").forEach(e=>e.classList.remove("on"));$(id).classList.add("on");
  document.querySelectorAll("nav button").forEach(e=>e.classList.remove("on"));b.classList.add("on")}
-function dailyBonus(){const left=864e5-(Date.now()-S.bonusAt);
- if(left>0)return toast("Bonus "+Math.ceil(left/36e5)+" ghante baad milega");
- S.bonusAt=Date.now();add(DAILY);toast("+"+DAILY+" coins mile!")}
-let AC=null;try{AC=window.Adsgram.init({blockId:BLOCK_ID})}catch(e){}
-async function watchAd(){roll();
- if(S.ads>=MAX_ADS)return toast("Aaj ke "+MAX_ADS+" ads poore ho gaye. Kal aana!");
- if(!AC)return toast("Ad abhi available nahi hai");
- try{const r=await AC.show();if(r&&r.done){S.ads++;add(AD_COINS);toast("+"+AD_COINS+" coins mile!")}}
- catch(e){toast("Ad poora nahi dekha ya abhi available nahi hai")}}
-function invite(){const l="https://t.me/Mohan999_bot/Tasks";
- tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(l)+"&text="+encodeURIComponent("Ye app try karo, daily tasks karo aur coins kamao!"))}
+function checkIn(){if(S.last===today())return toast("Already claimed today. Come back tomorrow!");
+ const r=ciReward();S.streak=nextStreak();S.last=today();add(r);toast("+"+r+" coins. Streak: "+S.streak+" days")}
+function claim(id){const m=MS.find(x=>x.id===id);if(S.ads<m.need||S.claimed[id])return;
+ S.claimed[id]=1;add(m.bonus);toast("+"+m.bonus+" bonus coins!")}
+let AC=null;if(REAL){try{AC=window.Adsgram.init({blockId:BLOCK_ID})}catch(e){}}
+function showAd(){return new Promise((ok,no)=>{
+ if(REAL){if(!AC)return no();AC.show().then(r=>r&&r.done?ok():no()).catch(no);return}
+ let n=5;$("cd").textContent=n;$("ov").classList.add("on");
+ const iv=setInterval(()=>{n--;$("cd").textContent=n;if(n<=0){clearInterval(iv);$("ov").classList.remove("on");ok()}},1000)})}
+let busy=false;
+async function watchAd(){roll();if(busy)return;
+ if(S.ads>=MAX)return toast("Daily limit reached. Come back tomorrow!");
+ busy=true;
+ try{await showAd();S.ads++;add(AD);toast("+"+AD+" coins earned!")}
+ catch(e){toast("Watch the full ad to earn coins")}
+ busy=false;render()}
+function invite(){tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(LINK)+"&text="+encodeURIComponent("Watch ads and earn coins every day!"))}
+function render(){roll();
+ const u=tg.initDataUnsafe&&tg.initDataUnsafe.user,name=u?(u.first_name||u.username||"User"):"User";
+ $("nm").textContent=name;$("av").textContent=name[0].toUpperCase();
+ $("lv").textContent="Lv "+(Math.floor(S.total/200)+1);
+ $("coins").textContent=S.coins;
+ $("pb").style.width=(S.ads/MAX*100)+"%";$("pt").textContent=S.ads+" / "+MAX+" ads watched today";
+ $("adBtn").disabled=S.ads>=MAX;$("adBtn").innerHTML=S.ads>=MAX?"Come back tomorrow":"&#9654; Watch Ad";
+ const done=S.last===today(),cur=done?S.streak:(S.last===yest()?S.streak:0);
+ $("days").innerHTML=[1,2,3,4,5,6,7].map(i=>'<span class="'+((cur%7||(cur>0?7:0))>=i?"on":"")+'">D'+i+'</span>').join("");
+ $("streakTxt").textContent=cur>0?"Current streak: "+cur+" day"+(cur>1?"s":""):"Come back every day to grow your streak";
+ $("ciBtn").disabled=done;$("ciBtn").textContent=done?"Claimed today":"Claim +"+ciReward()+" coins";
+ let h='<div class="t"><div class="ic">&#127916;</div><div class="i"><b>Watch ads</b><small>'+S.ads+' / '+MAX+' today</small></div><div><div class="rw">+'+AD+' each</div></div></div>';
+ h+='<div class="t"><div class="ic">&#128197;</div><div class="i"><b>Daily check-in</b><small>Bigger reward every day</small></div><button class="btn" '+(done?"disabled":"")+' onclick="checkIn()">'+(done?"Done":"+"+ciReward())+'</button></div>';
+ MS.forEach(m=>{const c=S.claimed[m.id],ready=S.ads>=m.need&&!c;
+  h+='<div class="t"><div class="ic">&#127942;</div><div class="i"><b>Watch '+m.need+' ads</b><small>'+Math.min(S.ads,m.need)+' / '+m.need+' today</small></div><button class="btn" '+(ready?"":"disabled")+' onclick="claim(\''+m.id+'\')">'+(c?"Claimed":"+"+m.bonus)+'</button></div>'});
+ h+='<div class="t"><div class="ic">&#128107;</div><div class="i"><b>Invite friends</b><small>Share the app with friends</small></div><button class="btn" onclick="invite()">Share</button></div>';
+ $("list").innerHTML=h;
+ $("p1").textContent=S.coins;$("p2").textContent=S.total;$("p3").textContent=S.ads+" / "+MAX;$("p4").textContent=cur+" days"}
 render();
 </script></body></html>
