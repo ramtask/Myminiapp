@@ -8,82 +8,99 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <style>
-:root{--bg:#0b0b12;--card:#14141f;--ln:#2a2a3d;--y:#f5c518;--y2:#e0a800;--ink:#fff;--mut:#8c8ca8;--gr:#2ecc71;--rd:#ff5a6e}
+:root{--bg:#0a0d1c;--card:#111631;--card2:#151b3d;--ln:#232a52;--a:#22d3ee;--b:#8b5cf6;--c:#f472b6;--gold:#fbbf24;--ink:#eef1ff;--mut:#8b93bd;--gr:#34d399;--rd:#fb7185}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,sans-serif;padding:0 16px 110px}
-header{display:flex;justify-content:space-between;align-items:center;padding:18px 0 14px;border-bottom:1px solid var(--ln);margin-bottom:16px}
-.logo{font-size:26px;font-weight:900;letter-spacing:-.5px}.logo b{color:var(--y)}
-.pill{background:var(--card);border:1.5px solid var(--ln);border-radius:20px;padding:8px 16px;font-weight:800;color:var(--y)}
-.hero{background:var(--card);border:1.5px solid var(--ln);border-radius:26px;padding:22px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,sans-serif;padding:0 16px 110px;background-image:radial-gradient(circle at 85% -5%,#8b5cf633,transparent 45%),radial-gradient(circle at -10% 20%,#22d3ee22,transparent 40%)}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 14px;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px}.brand svg{width:38px;height:38px;flex:none}
+.logo{font-size:22px;font-weight:900;letter-spacing:-.3px;line-height:1.05}.logo small{display:block;font-size:11px;letter-spacing:2px;color:var(--mut);font-weight:700}
+.pill{background:var(--card);border:1.5px solid var(--ln);border-radius:20px;padding:8px 14px;font-weight:800;color:var(--gold)}
+.hero{position:relative;overflow:hidden;background:linear-gradient(155deg,#1a2160,#111637 60%);border:1.5px solid #343d8a;border-radius:26px;padding:22px}
+.hero:after{content:"";position:absolute;right:-50px;top:-50px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,#22d3ee55,transparent 70%)}
 .hero small{color:var(--mut);letter-spacing:2px;font-size:12px}.hero .nm{font-size:20px;font-weight:800;margin:2px 0 14px}
-.hero .bal{font-size:54px;font-weight:900;line-height:1;color:var(--y)}
-.eq{color:var(--mut);font-size:14px;margin-top:6px}
-.st{display:flex;gap:22px;margin-top:16px}.st div{font-size:12px;color:var(--mut)}.st b{display:block;font-size:19px;color:var(--gr)}
-.chip{display:inline-block;margin-top:14px;background:#f5c51820;border:1px solid #f5c51855;border-radius:20px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--y)}
-.btn{width:100%;border:0;border-radius:18px;padding:18px;font-size:18px;font-weight:900;color:#1a1400;background:linear-gradient(135deg,var(--y),var(--y2));box-shadow:0 8px 22px #f5c51833;margin-top:16px}
-.btn:active{transform:scale(.98)}.btn:disabled{background:#26263a;color:#6b6b85;box-shadow:none}
-.btn.o{background:transparent;color:var(--y);border:2px solid var(--y);box-shadow:none}
+.hero .bal{font-size:50px;font-weight:900;line-height:1;background:linear-gradient(90deg,var(--gold),#fb923c);-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
+.eq{color:var(--a);font-size:15px;margin-top:6px;font-weight:700;position:relative}
+.st{display:flex;gap:22px;margin-top:16px;position:relative}.st div{font-size:12px;color:var(--mut)}.st b{display:block;font-size:18px;color:var(--ink)}
+.chip{display:inline-block;margin-top:14px;background:#22d3ee1a;border:1px solid #22d3ee44;border-radius:20px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--a);position:relative}
+.btn{width:100%;border:0;border-radius:18px;padding:17px;font-size:17px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 10px 24px #8b5cf640;margin-top:16px}
+.btn:active{transform:scale(.98)}.btn:disabled{background:#1c2145;color:#5d6590;box-shadow:none}
+.btn.o{background:transparent;color:var(--a);border:2px solid var(--a);box-shadow:none}
 h4{margin:24px 0 8px;font-size:13px;letter-spacing:2px;color:var(--mut)}
 h2{margin:10px 0 4px}
 .mut{color:var(--mut)}
 .card{background:var(--card);border:1.5px solid var(--ln);border-radius:20px;padding:16px;margin-top:12px}
 .r{display:flex;align-items:center;gap:14px}.r .i{flex:1;min-width:0}
-.ic{width:52px;height:52px;border-radius:16px;background:#f5c51818;display:grid;place-items:center;font-size:26px;flex:none}
-.r b{display:block;font-size:16px}.r small{color:var(--mut);font-size:13px}.gain{font-weight:900;color:var(--y);font-size:18px}
-.bar{height:10px;background:#26263a;border-radius:8px;overflow:hidden;margin-top:16px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--y),var(--y2))}
+.ic{width:52px;height:52px;border-radius:16px;background:#22d3ee14;display:grid;place-items:center;font-size:26px;flex:none;overflow:hidden}.ic svg{width:52px;height:52px}
+.r b{display:block;font-size:16px}.r small{color:var(--mut);font-size:13px}.gain{font-weight:900;color:var(--gold);font-size:17px}
+.bar{height:10px;background:#1c2145;border-radius:8px;overflow:hidden;margin-top:16px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b))}
 .split{display:flex;justify-content:space-between;margin-top:8px;color:var(--mut);font-size:13px}
-.big{font-size:56px;font-weight:900;color:var(--y);line-height:1}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.two .card{margin-top:0;text-align:center}.two b{display:block;font-size:30px;color:var(--y)}.two small{color:var(--mut);font-size:13px}
-.slots{display:flex;gap:8px;margin-top:14px}.slots span{flex:1;height:44px;border-radius:12px;background:#26263a;display:grid;place-items:center;color:var(--mut);font-weight:800}.slots span.on{background:var(--y);color:#1a1400}
-.lnk{background:var(--card);border:1.5px dashed var(--y2);border-radius:14px;padding:12px;font-size:13px;word-break:break-all;margin-top:8px;color:var(--y)}
+.big{font-size:56px;font-weight:900;color:var(--a);line-height:1}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.two .card{margin-top:0;text-align:center}.two b{display:block;font-size:26px;color:var(--gold)}.two small{color:var(--mut);font-size:13px}
+.slots{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}.slots span{flex:1;min-width:30px;height:40px;border-radius:12px;background:#1c2145;display:grid;place-items:center;color:var(--mut);font-weight:800;font-size:13px}.slots span.on{background:linear-gradient(135deg,var(--a),var(--b));color:#fff}
+.lnk{background:var(--card);border:1.5px dashed var(--b);border-radius:14px;padding:12px;font-size:13px;word-break:break-all;margin-top:8px;color:var(--a)}
 .ck{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--ln)}
 .ck .t{flex:1}.ck b{display:block}.ck small{color:var(--mut)}.ck .m{font-size:22px}
-.lock{background:#2a1820;border:1.5px solid #5a2a38;color:var(--rd);border-radius:16px;padding:14px;font-weight:600;margin-top:16px;font-size:14px}
-.lock.ok{background:#142a1e;border-color:#2a5a3c;color:var(--gr)}
-input{width:100%;border:1.5px solid var(--ln);border-radius:14px;padding:14px;font-size:16px;margin-top:12px;outline:0;color:var(--ink);background:#0f0f19}input:focus{border-color:var(--y)}
-input::placeholder{color:#6b6b85}
-.note{text-align:center;color:var(--mut);font-size:13px;line-height:2;margin-top:18px}.note a{color:var(--y);text-decoration:none}
+.lock{background:#2a1424;border:1.5px solid #5a2a46;color:var(--rd);border-radius:16px;padding:14px;font-weight:600;margin-top:16px;font-size:14px}
+.lock.ok{background:#0f2a24;border-color:#1f5a46;color:var(--gr)}
+input{width:100%;border:1.5px solid var(--ln);border-radius:14px;padding:14px;font-size:16px;margin-top:12px;outline:0;color:var(--ink);background:#0b1026}input:focus{border-color:var(--a)}
+input::placeholder{color:#5d6590}
+.note{text-align:center;color:var(--mut);font-size:13px;line-height:2;margin-top:18px}.note a{color:var(--a);text-decoration:none}
 .tab{display:none}.tab.on{display:block}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#0d0d16f2;backdrop-filter:blur(12px);border-top:1.5px solid var(--ln);padding:8px 4px calc(14px + env(safe-area-inset-bottom))}
-nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-weight:700;padding:4px 0}nav button i{display:block;font-style:normal;font-size:23px}nav button.on{color:var(--y)}
+nav{position:fixed;left:10px;right:10px;bottom:10px;display:flex;background:#0e1330ee;backdrop-filter:blur(14px);border:1.5px solid var(--ln);border-radius:22px;padding:8px 4px calc(10px + env(safe-area-inset-bottom))}
+nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-weight:700;padding:4px 0}nav button i{display:block;font-style:normal;font-size:22px}nav button.on{color:var(--a)}
 .ovl{position:fixed;inset:0;background:#000000cc;display:none;place-items:center;z-index:9}.ovl.on{display:grid}
 .box{background:var(--card);border:1.5px solid var(--ln);border-radius:24px;padding:26px;text-align:center;width:86%;max-width:340px}
-.code{font-size:22px;font-weight:900;letter-spacing:2px;color:var(--y);background:#0f0f19;border:2px dashed var(--y2);border-radius:14px;padding:16px 8px;margin:14px 0;word-break:break-all}
-#toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-90px);background:#2a2a3d;border:1px solid #3a3a52;color:#fff;padding:12px 20px;border-radius:16px;font-weight:700;font-size:14px;transition:.3s;z-index:30;max-width:90%;text-align:center}#toast.on{transform:translate(-50%,0)}
+.code{font-size:22px;font-weight:900;letter-spacing:2px;color:var(--a);background:#0b1026;border:2px dashed var(--b);border-radius:14px;padding:16px 8px;margin:14px 0;word-break:break-all}
+#toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-90px);background:#1c2145;border:1px solid #343d8a;color:#fff;padding:12px 20px;border-radius:16px;font-weight:700;font-size:14px;transition:.3s;z-index:30;max-width:90%;text-align:center}#toast.on{transform:translate(-50%,0)}
 /* game */
-.arena{position:relative;height:230px;border-radius:16px;background:#0f0f19;border:1.5px solid var(--ln);margin-top:14px;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none}
-.tgt{position:absolute;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:#f5c51830;border:2px solid var(--y);animation:pop .15s ease-out;box-shadow:0 0 18px #f5c51866}
-.tgt.bomb{background:#ff5a6e30;border-color:var(--rd);box-shadow:0 0 18px #ff5a6e66}
+.arena{position:relative;height:250px;border-radius:16px;background:#0b1026;border:1.5px solid var(--ln);margin-top:14px;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.tgt{position:absolute;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:#fbbf2428;border:2px solid var(--gold);animation:pop .15s ease-out;box-shadow:0 0 18px #fbbf2466}
+.tgt.bomb{background:#fb718528;border-color:var(--rd);box-shadow:0 0 18px #fb718566}
 @keyframes pop{from{transform:scale(.3)}to{transform:scale(1)}}
 .gend,.gidle{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:12px}
-.gend b{font-size:22px;color:var(--y)}.gend span{font-size:34px;font-weight:900}
-.gidle{color:var(--mut);font-size:14px;line-height:1.6}.gidle b{color:var(--ink);font-size:18px}
+.gend b{font-size:22px;color:var(--a)}.gend span{font-size:34px;font-weight:900}
+.gidle{color:var(--mut);font-size:13px;line-height:1.5;gap:2px}.gidle b{color:var(--ink);font-size:18px}
+.glogo{width:96px;height:96px;animation:flt 2.4s ease-in-out infinite;filter:drop-shadow(0 8px 18px #8b5cf666)}
+.gtitle{font-size:22px;font-weight:900;letter-spacing:4px;margin-top:2px;background:linear-gradient(90deg,#22d3ee,#8b5cf6,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 /* history + admin */
-.hsum{margin:14px 0 4px;font-size:13px;color:var(--mut)}.hsum b{display:block;font-size:30px;color:var(--y)}
+.hsum{margin:14px 0 4px;font-size:13px;color:var(--mut)}.hsum b{display:block;font-size:28px;color:var(--gold)}
 .adm{position:fixed;inset:0;background:var(--bg);z-index:15;display:none;overflow:auto;padding:0 16px 60px}.adm.on{display:block}
 .ah{display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-size:18px}
-.ah button{background:var(--card);border:1.5px solid var(--ln);border-radius:14px;padding:8px 16px;font-weight:800;color:var(--y)}
-.sum{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sum div{background:var(--card);border:1.5px solid var(--ln);border-radius:16px;padding:12px;font-size:12px;color:var(--mut)}.sum b{display:block;font-size:22px;color:var(--y)}
+.ah button{background:var(--card);border:1.5px solid var(--ln);border-radius:14px;padding:8px 16px;font-weight:800;color:var(--a)}
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sum div{background:var(--card);border:1.5px solid var(--ln);border-radius:16px;padding:12px;font-size:12px;color:var(--mut)}.sum b{display:block;font-size:22px;color:var(--a)}
 .ur{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--ln);font-size:14px}.ur:first-child{border-top:0}
 .ur small{color:var(--mut);display:block;word-break:break-all}.ur .rt{text-align:right;flex:none}
-.ab{display:flex;gap:8px;margin-top:8px}.ab button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:800;color:#1a1400;background:var(--y)}.ab button.g{background:transparent;color:var(--rd);border:1.5px solid #5a2a38}
-.tg{display:inline-block;border-radius:10px;padding:2px 8px;font-size:12px;font-weight:800;background:#f5c51822;color:var(--y)}.tg.ok{background:#2ecc7120;color:var(--gr)}.tg.no{background:#ffffff18;color:#aaa}
+.ab{display:flex;gap:8px;margin-top:8px}.ab button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--a),var(--b))}.ab button.g{background:transparent;color:var(--rd);border:1.5px solid #5a2a46}
+.tg{display:inline-block;border-radius:10px;padding:2px 8px;font-size:12px;font-weight:800;background:#22d3ee1f;color:var(--a)}.tg.ok{background:#34d3991f;color:var(--gr)}.tg.no{background:#ffffff18;color:#aaa}
 </style></head><body>
 
-<header><div class="logo">Mini <b>TV</b> Task</div><div class="pill" id="top">₹0</div></header>
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 64 64"><defs><linearGradient id="lgH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect width="64" height="64" rx="17" fill="url(#lgH)"/><rect x="11" y="15" width="42" height="29" rx="7" fill="#0a0d1c"/><path d="M28 23l12 6.5L28 36z" fill="#fbbf24"/><rect x="22" y="48" width="20" height="4" rx="2" fill="#fff"/></svg>
+    <div class="logo">Mini TV Task<small>PLAY • WATCH • EARN</small></div>
+  </div>
+  <div class="pill" id="top">0 🪙</div>
+</header>
 
 <section id="home" class="tab on">
   <div class="hero"><small>WELCOME BACK,</small><div class="nm" id="nm" onclick="go('profile')">User</div>
-    <small>TOTAL BALANCE</small><div class="bal" id="bal">₹0</div><div class="eq" id="eq"></div>
+    <small>TOKEN BALANCE</small><div class="bal" id="bal">0 🪙</div><div class="eq" id="eq"></div>
     <div class="st"><div><b id="s1">0</b>Total Earned</div><div><b id="s2">0</b>Ads Watched</div><div><b id="s3">0</b>Referrals</div></div>
     <span class="chip" id="chip">🎬 0 ads watched today</span></div>
   <button class="btn" id="b1" onclick="watch()"></button>
-  <div class="card" id="gcard"><div class="r"><div class="ic">⭐</div><div class="i"><b>Tap Rush</b><small>Tap the stars for 10 seconds</small></div><div class="gain" id="gbest">Best 0</div></div>
-    <div class="arena" id="garena"><div class="gidle"><b>Ready?</b>Tap ⭐ = +1 &nbsp;|&nbsp; 💣 = -3<br>Score 15+ gives a bonus</div></div>
+
+  <div class="card" id="gcard"><div class="r">
+    <div class="ic"><svg viewBox="0 0 64 64"><defs><linearGradient id="lgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#lgG)"/><circle cx="32" cy="33" r="19" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/><path d="M32 14l5.6 11.4 12.6 1.8-9.1 8.9 2.2 12.5L32 42.6 20.7 48.6l2.2-12.5-9.1-8.9 12.6-1.8z" fill="#fff"/></svg></div>
+    <div class="i"><b>Tap Rush</b><small>Tap the stars for 10 seconds</small></div><div class="gain" id="gbest">Best 0</div></div>
+    <div class="arena" id="garena"><div class="gidle"><svg class="glogo" viewBox="0 0 120 120"><defs><linearGradient id="lgR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".55" stop-color="#8b5cf6"/><stop offset="1" stop-color="#f472b6"/></linearGradient><linearGradient id="lgS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#f59e0b"/></linearGradient><radialGradient id="lgB" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#8b5cf6" stop-opacity=".55"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="url(#lgB)"/><circle cx="60" cy="60" r="50" fill="#0f1534" stroke="url(#lgR)" stroke-width="4"/><circle cx="60" cy="60" r="38" fill="none" stroke="#ffffff" stroke-opacity=".22" stroke-width="2" stroke-dasharray="3 5"/><circle cx="60" cy="60" r="25" fill="none" stroke="#22d3ee" stroke-opacity=".35" stroke-width="2"/><path d="M60.0 36.0 L66.8 53.7 L85.7 54.7 L70.9 66.6 L75.9 84.8 L60.0 74.5 L44.1 84.8 L49.1 66.6 L34.3 54.7 L53.2 53.7 Z" fill="url(#lgS)" stroke="#fff7d1" stroke-width="2" stroke-linejoin="round"/><path d="M60 12v9M60 99v9M12 60h9M99 60h9" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/><path d="M96 22l2.2 5 5 2.2-5 2.2-2.2 5-2.2-5-5-2.2 5-2.2z" fill="#f472b6"/><path d="M22 92l1.6 3.6 3.6 1.6-3.6 1.6L22 102l-1.6-3.6-3.6-1.6 3.6-1.6z" fill="#22d3ee"/></svg><div class="gtitle">TAP RUSH</div><span>Tap ⭐ = +1 &nbsp;|&nbsp; 💣 = -3</span><span>Score 15+ gives a bonus</span></div></div>
     <div class="split"><span id="gtime">10.0s</span><span id="gscore">Score 0</span></div>
     <div class="bar"><i id="gbar"></i></div>
     <button class="btn" id="gbtn" onclick="gameStart()">▶️ Play (10 sec)</button>
     <button class="btn o" id="gclaim" style="display:none" onclick="gameClaim()"></button></div>
+
+  <div class="card"><h2 style="margin:0">🏆 Top Players</h2><small class="mut">Best Tap Rush scores</small><div id="toplist" style="margin-top:8px"></div></div>
+
   <h4>QUICK EARN</h4>
   <div class="card r" onclick="go('refer')"><div class="ic">👥</div><div class="i"><b>Refer a Friend</b><small id="rtxt"></small></div><div class="gain" id="rg"></div></div>
   <div class="card r" onclick="go('earn')"><div class="ic">🎯</div><div class="i"><b>Earn More</b><small id="etxt"></small></div><div class="gain" id="eg"></div></div>
@@ -91,7 +108,7 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
 
 <section id="tasks" class="tab">
   <h4>TELEGRAM CHANNELS</h4>
-  <small class="mut">Join channels and earn coins. Joins are verified by Adsgram.</small>
+  <small class="mut">Join channels and earn tokens. Joins are verified by Adsgram.</small>
   <div id="tlist"></div>
 </section>
 
@@ -118,16 +135,20 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
 </section>
 
 <section id="withdraw" class="tab">
-  <div class="card" style="margin-top:0"><h2 style="margin:0">💸 Withdraw Earnings</h2><small class="mut">Transfer your balance directly to UPI</small>
+  <div class="card" style="margin-top:0"><h2 style="margin:0">💸 Withdraw Earnings</h2><small class="mut">Convert tokens and transfer to UPI</small>
     <div class="ck" style="margin-top:12px"><div class="m">💰</div><div class="t"><b>Minimum <span id="mw"></span> balance</b><small id="cur"></small></div><div class="m" id="okm">❌</div></div>
     <div class="ck" id="refrow"><div class="m">👥</div><div class="t"><b>Minimum <span id="mr"></span> referrals</b><small id="cr"></small></div><div class="m" id="okr">❌</div></div>
     <div class="lock" id="lk"></div>
-    <input id="wamt" placeholder="Amount to withdraw (₹)" inputmode="numeric" autocomplete="off">
+    <input id="wamt" placeholder="Tokens to withdraw" inputmode="numeric" autocomplete="off" oninput="wcalc()">
+    <small class="mut" id="wc" style="display:block;margin-top:6px"></small>
     <input id="upi" placeholder="Your UPI ID (name@bank)" autocomplete="off">
     <button class="btn" id="wb" onclick="wd()"></button></div>
   <div class="note" id="pn"></div>
-  <div class="card"><h2 style="margin:0">📜 History</h2><small class="mut">Earnings and withdrawals</small>
-    <div class="hsum"><b id="hte">₹0</b>Total earned</div>
+  <div class="card"><h2 style="margin:0">✅ Recent Payouts</h2><small class="mut">Real withdrawals paid to users</small>
+    <div class="hsum"><b id="ptot">₹0.00</b>Total paid out</div>
+    <div id="plist"></div></div>
+  <div class="card"><h2 style="margin:0">📜 My History</h2><small class="mut">Earnings and withdrawals</small>
+    <div class="hsum"><b id="hte">0 🪙</b>Total earned</div>
     <div id="hlist"></div></div>
 </section>
 
@@ -155,17 +176,20 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
 <div class="adm" id="adm">
   <div class="ah"><b>🛠 Admin Panel</b><button onclick="admClose()">Close</button></div>
   <div id="apanel">
+    <div class="card"><b>🪙 Token value (sab users ke liye)</b><br><small class="mut" id="acur"></small>
+      <input id="arate" placeholder="1 token = ₹ ? (jaise 0.05)" inputmode="decimal" autocomplete="off">
+      <button class="btn" onclick="setRate()">Save for all users</button></div>
     <div class="card"><b>🔍 Search user</b>
       <input id="asq" placeholder="User ID (6 digit), Telegram ID or @username" autocomplete="off" oninput="admSearch()">
       <div id="asr" style="margin-top:8px"></div></div>
-    <div class="sum" id="asum"></div>
+    <div class="sum" id="asum" style="margin-top:12px"></div>
     <button class="btn o" onclick="admLoad()" style="margin-top:12px">🔄 Refresh</button>
     <h4>WITHDRAW / VOUCHER REQUESTS</h4>
     <div class="card" id="areqs"></div>
-    <h4>WALLET: ADD / CUT COINS</h4>
+    <h4>WALLET: ADD / CUT TOKENS</h4>
     <div class="card">
       <input id="aid" placeholder="User ID (6 digit) or tap a user" inputmode="numeric" autocomplete="off">
-      <input id="aamt" placeholder="Amount (₹)" inputmode="numeric" autocomplete="off">
+      <input id="aamt" placeholder="Tokens" inputmode="numeric" autocomplete="off">
       <div class="ab"><button onclick="wal(1)">➕ Add</button><button class="g" onclick="wal(-1)">➖ Cut</button></div>
     </div>
     <h4>USERS (TODAY ADS)</h4>
@@ -180,12 +204,12 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
 const CFG={
  block:"61972",              // Adsgram Reward Block ID
  taskBlock:"",               // Adsgram TASK block ID (jaise "task-12345"). Khali = Tasks tab me "coming soon"
- taskReward:10,              // channel task complete par ₹
- reward:5,                   // har ad par ₹ (database rules me bhi 5 hai)
- bonusAds:10, bonus:20,      // roz itne ads dekhne par itna bonus ₹
- refBonus:10,refMax:20,      // har referral par ₹, max referrals (rules me bhi 10 / 20)
+ taskReward:10,              // channel task complete par tokens
+ reward:5,                   // har ad par tokens (database rules me bhi 5 hai)
+ bonusAds:10, bonus:20,      // roz itne ads dekhne par itna bonus (tokens)
+ refBonus:10,refMax:20,      // har referral par tokens, max referrals (rules me bhi 10 / 20)
  minRefs:5,                  // withdraw ke liye minimum referrals
- minW:800,                   // minimum withdrawal ₹ (rules me bhi 800)
+ minW:800,                   // minimum withdrawal (tokens, rules me bhi 800)
  dailyMax:100,               // max ads per day (rules me bhi 100)
  gap:12000,                  // do ads ke beech min wait (ms)
  support:"probo999",         // support Telegram username (bina @)
@@ -203,12 +227,14 @@ const FBCFG={
 };
 
 const tg=Telegram.WebApp;tg.ready();tg.expand();
-const $=id=>document.getElementById(id),R=n=>"₹"+n,RS=n=>"",today=()=>new Date().toDateString();
+let TV=5;                                  // 1 token ki value paise me (5 = ₹0.05, yaani 20 tokens = ₹1). Admin panel se badalta h
+const $=id=>document.getElementById(id),R=n=>n+" 🪙",RS=n=>"≈ ₹"+(n*TV/100).toFixed(2),today=()=>new Date().toDateString();
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const u=(tg.initDataUnsafe&&tg.initDataUnsafe.user)||{},uid=String(u.id||"guest");
 let S={bal:0,total:0,vids:0,day:"",today:0,refPaid:0,refs:0},ready=false,busy=false,lastAd=0,curReq="",db=null,TS=null;
 const FBOK=FBCFG.apiKey.indexOf("PASTE")<0;
-if(FBOK){firebase.initializeApp(FBCFG);db=firebase.database();TS=firebase.database.ServerValue.TIMESTAMP}
+if(FBOK){firebase.initializeApp(FBCFG);db=firebase.database();TS=firebase.database.ServerValue.TIMESTAMP;
+ db.ref("config/tv").on("value",s=>{if(s.exists()&&s.val()>0){TV=s.val();render()}})}
 let AC=null;try{AC=window.Adsgram.init({blockId:CFG.block})}catch(e){}
 
 let ADM={users:[],reqs:[]},H={},MR=[];
@@ -221,17 +247,35 @@ async function commit(up,k,dv){
 async function loadHist(){
  try{const a=await db.ref("daily/"+uid).orderByKey().limitToLast(30).once("value");H=a.val()||{}}catch(e){}
  try{const b=await db.ref("reqs/"+uid).once("value");MR=[];b.forEach(c=>{const v=c.val();v.key=c.key;MR.push(v)})}catch(e){}
- renderHist()}
+ renderHist();loadPay()}
 function renderHist(){
  const he=$("hte");if(!he)return;
  he.textContent=R(S.total||0);
  const tl={withdraw:"💸 Withdrawal",voucher:"🎟️ Voucher"},items=[];
- Object.keys(H).forEach(k=>items.push({t:new Date(k+"T23:59:59").getTime(),h:'<div class="ur"><div><b>🎬 '+esc(k)+'</b><small>'+esc(H[k].ads||0)+' ads watched</small></div><div class="rt"><b style="color:#2ecc71">+₹'+esc(H[k].coins||0)+'</b><small>earned</small></div></div>'}));
+ Object.keys(H).forEach(k=>items.push({t:new Date(k+"T23:59:59").getTime(),h:'<div class="ur"><div><b>🎬 '+esc(k)+'</b><small>'+esc(H[k].ads||0)+' ads watched</small></div><div class="rt"><b style="color:#34d399">+'+esc(H[k].coins||0)+' 🪙</b><small>earned</small></div></div>'}));
  MR.forEach(r=>{
   const st=r.status==="paid"?'<span class="tg ok">paid</span>':r.status==="rejected"?'<span class="tg no">rejected</span>':'<span class="tg">pending</span>';
-  items.push({t:r.t||0,h:'<div class="ur"><div><b>'+(tl[r.type]||"Request")+'</b><small>'+(r.t?new Date(r.t).toLocaleString():"")+'</small></div><div class="rt"><b style="color:#ff5a6e">-₹'+esc(r.amt)+'</b><br>'+st+'</div></div>'})});
+  items.push({t:r.t||0,h:'<div class="ur"><div><b>'+(tl[r.type]||"Request")+'</b><small>'+(r.t?new Date(r.t).toLocaleString():"")+'</small></div><div class="rt"><b style="color:#fb7185">-'+esc(r.amt)+' 🪙</b><small>≈ ₹'+(r.amt*(r.rate||TV)/100).toFixed(2)+'</small>'+st+'</div></div>'})});
  items.sort((x,y)=>y.t-x.t);
  $("hlist").innerHTML=items.slice(0,40).map(x=>x.h).join("")||'<small class="mut">No history yet</small>'}
+/* Recent payouts: sirf asli (admin ne Paid mark kiya hua) withdrawals dikhte h */
+async function loadPay(){
+ try{
+  const s=await db.ref("reqs").once("value"),a=[];
+  s.forEach(up=>{up.forEach(r=>{const v=r.val();if(v.status==="paid"&&v.type==="withdraw"){v.uid=up.key;a.push(v)}})});
+  a.sort((x,y)=>(y.t||0)-(x.t||0));
+  let tot=0;a.forEach(v=>{tot+=v.amt*(v.rate||5)/100});
+  $("ptot").textContent="₹"+tot.toFixed(2);
+  $("plist").innerHTML=a.slice(0,10).map(v=>'<div class="ur"><div><b>User ••••'+esc(String(v.uid).slice(-3))+'</b><small>'+(v.t?new Date(v.t).toLocaleDateString():"")+'</small></div><div class="rt"><b style="color:#34d399">₹'+(v.amt*(v.rate||5)/100).toFixed(2)+'</b><span class="tg ok">paid</span></div></div>').join("")||'<small class="mut">No payouts yet</small>';
+ }catch(e){}}
+/* Leaderboard */
+async function loadTop(){
+ try{
+  const s=await db.ref("scores").orderByChild("s").limitToLast(10).once("value"),a=[];
+  s.forEach(c=>{const v=c.val();v.id=c.key;a.push(v)});
+  a.sort((x,y)=>y.s-x.s);
+  $("toplist").innerHTML=a.map((v,i)=>'<div class="ur"><div><b>'+(i<3?["🥇","🥈","🥉"][i]:(i+1)+".")+' '+esc(v.n||"Player")+'</b></div><div class="rt"><b>'+esc(v.s)+'</b></div></div>').join("")||'<small class="mut">Be the first on the board!</small>';
+ }catch(e){}}
 function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2800)}
 function go(id){document.querySelectorAll(".tab").forEach(e=>e.classList.remove("on"));$(id).classList.add("on");
  const names=["home","tasks","earn","refer","withdraw"];document.querySelectorAll("nav button").forEach((e,i)=>e.classList.toggle("on",names[i]===id));window.scrollTo(0,0);if(id==="withdraw")loadHist()}
@@ -254,6 +298,8 @@ async function boot(){
   if(nm&&S.name!==nm)nu.name=nm;if(un&&S.un!==un)nu.un=un;
   if(Object.keys(nu).length){try{await ref.update(nu);Object.assign(S,nu)}catch(e){}}
   if(!S.pid)await assignPid();
+  try{const q=await db.ref("scores/"+uid+"/s").once("value");G.srv=q.val()||0}catch(e){}
+  loadTop();
   await loadHist();await claimRefs();ready=true;
   ref.on("value",s=>{if(s.exists()){Object.assign(S,s.val());render()}});
  }catch(e){toast("Server error. Reopen the app.")}
@@ -273,7 +319,7 @@ async function claimRefs(){
   try{await commit(up,k,{ads:h.ads,coins:h.coins+CFG.refBonus});Object.assign(S,up);toast("+"+R(CFG.refBonus)+" referral bonus!")}catch(e){break}
  }}
 
-/* ====== ADS ====== */
+/* ====== ADS (rewarded video: user button dabata h tabhi ad aata h) ====== */
 async function watch(extra){
  extra=+extra||0;
  if(busy)return false;if(!ready){toast("Loading… try again");return false}
@@ -293,7 +339,7 @@ async function watch(extra){
 
 /* ====== GAME: Tap Rush (10 sec). Khelna free h, ad dekhne par bonus milta h ====== */
 const GT=[[35,3],[25,2],[15,1]];
-let G={on:false,score:0,bonus:0,claimed:true,t0:0,iv:null,sp:null,best:0};
+let G={on:false,score:0,bonus:0,claimed:true,t0:0,iv:null,sp:null,best:0,srv:0};
 try{G.best=parseInt(localStorage.getItem("tr_best")||"0",10)||0}catch(e){}
 function gameTier(sc){for(const t of GT)if(sc>=t[0])return t[1];return 0}
 function gameSpawn(){
@@ -320,6 +366,8 @@ function gameEnd(){
  G.on=false;clearInterval(G.iv);clearTimeout(G.sp);
  const sc=G.score;G.bonus=gameTier(sc);
  if(sc>G.best){G.best=sc;try{localStorage.setItem("tr_best",String(sc))}catch(e){}}
+ if(FBOK&&ready&&sc>(G.srv||0)&&sc<=100){G.srv=sc;
+  db.ref("scores/"+uid).set({n:(u.first_name||u.username||"Player").slice(0,20),s:sc}).then(loadTop).catch(()=>{})}
  $("garena").innerHTML='<div class="gend"><b>Time\'s up!</b><span>Score '+sc+'</span></div>';
  $("gbest").textContent="Best "+G.best;$("gtime").textContent="0.0s";$("gbar").style.width="100%";
  $("gbtn").disabled=false;$("gbtn").textContent="🔁 Play again";
@@ -352,7 +400,7 @@ function initTasks(){
  if(!CFG.taskBlock){t.innerHTML='<div class="card"><small class="mut">Channel tasks are coming soon.</small></div>';return}
  const el=document.createElement("adsgram-task");
  el.setAttribute("data-block-id",CFG.taskBlock);el.className="task";
- el.innerHTML='<span slot="reward">₹'+CFG.taskReward+'</span><div slot="button">Go</div><div slot="claim">Claim</div><div slot="done">Done</div>';
+ el.innerHTML='<span slot="reward">'+CFG.taskReward+' tokens</span><div slot="button">Go</div><div slot="claim">Claim</div><div slot="done">Done</div>';
  el.addEventListener("reward",()=>{if(ready)addCoins(CFG.taskReward)});
  t.appendChild(el)}
 
@@ -364,25 +412,23 @@ function sendSup(){const m="Hi, I want to redeem my voucher.\nRequest ID: "+curR
 async function sendReq(type,amt,upi){
  if(busy)return;busy=true;
  try{
-  const key=db.ref("reqs/"+uid).push().key,up={},rq={type:type,amt:amt,t:TS};
+  const key=db.ref("reqs/"+uid).push().key,up={},rq={type:type,amt:amt,t:TS,rate:TV};
   const nb=S.bal-amt;up["users/"+uid+"/bal"]=nb;up["reqs/"+uid+"/"+key]=rq;
-  await db.ref().update(up);S.bal=nb;MR.push({type:type,amt:amt,t:Date.now(),key:key});render();busy=false;return key.slice(-8).toUpperCase()+"-"+uid;
+  await db.ref().update(up);S.bal=nb;MR.push({type:type,amt:amt,rate:TV,t:Date.now(),key:key});render();busy=false;return key.slice(-8).toUpperCase()+"-"+uid;
  }catch(e){busy=false;toast("Request failed. Try again.");try{await load()}catch(x){}render();return null}}
-function buyV(){if(!ready)return;if(S.bal<CFG.vCost)return toast("You need "+R(CFG.vCost));
- const go2=async()=>{const id=await sendReq("voucher",CFG.vCost);if(id)showV(id)};
- if(tg.showConfirm)tg.showConfirm("Spend "+CFG.vCost+" coins on a voucher?",ok=>{if(ok)go2()});else go2()}
 const rl=()=>CFG.link+"?startapp=ref_"+uid;
 function copyL(){const t=rl();if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>toast("Link copied!")).catch(()=>toast(t));else toast(t)}
-function share(){tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(rl())+"&text="+encodeURIComponent("Watch ads and earn on Mini TV Task!"))}
+function share(){tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(rl())+"&text="+encodeURIComponent("Play Tap Rush, watch ads and earn tokens on Mini TV Task!"))}
+function wcalc(){const a=parseInt($("wamt").value,10)||0;$("wc").textContent=a>0?RS(a)+" (1 token = ₹"+(TV/100).toFixed(2)+")":""}
 async function wd(){const v=$("upi").value.trim(),amt=parseInt($("wamt").value,10);if(!ready)return;
  if((S.refs||0)<CFG.minRefs)return toast("You need "+CFG.minRefs+" referrals to withdraw");
- if(!(amt>0))return toast("Enter amount to withdraw");
+ if(!(amt>0))return toast("Enter tokens to withdraw");
  if(amt<CFG.minW)return toast("Minimum withdrawal is "+R(CFG.minW));
  if(amt>S.bal)return toast("Not enough balance");
  if(!/^[\w.\-]{2,}@[\w]{2,}$/.test(v))return toast("Enter a valid UPI ID");
  const id=await sendReq("withdraw",amt,v);
- if(id){$("wamt").value="";toast("Request submitted. Send the message to support.");
-  tg.openTelegramLink("https://t.me/"+CFG.support+"?text="+encodeURIComponent("Withdraw request\nAmount: "+amt+" coins\nUPI: "+v+"\nRequest ID: "+id+"\nTelegram ID: "+uid))}}
+ if(id){$("wamt").value="";wcalc();toast("Request submitted. Send the message to support.");
+  tg.openTelegramLink("https://t.me/"+CFG.support+"?text="+encodeURIComponent("Withdraw request\nTokens: "+amt+" ("+RS(amt)+")\nUPI: "+v+"\nRequest ID: "+id+"\nTelegram ID: "+uid))}}
 
 /* ====== BONUS CODE + ADMIN ====== */
 function applyCode(){const c=$("bc").value.trim();$("bc").value="";
@@ -393,6 +439,10 @@ function admOpen(){
  $("adm").classList.add("on");admLoad()}
 function admClose(){$("adm").classList.remove("on")}
 function admOut(){admClose()}
+async function setRate(){
+ const v=parseFloat($("arate").value),p=Math.round(v*100);
+ if(!(p>=1&&p<=1000))return toast("Enter a value between 0.01 and 10");
+ try{await db.ref("config/tv").set(p);$("arate").value="";toast("Saved: 1 token = ₹"+(p/100).toFixed(2))}catch(e){toast("Failed. Check rules.")}}
 function admSearch(){
  const q=$("asq").value.trim().toLowerCase().replace("@",""),o=$("asr"),td=today();
  if(!q){o.innerHTML="";return}
@@ -400,9 +450,9 @@ function admSearch(){
  o.innerHTML=m.map(x=>{const rq=ADM.reqs.filter(r=>r.uid===x.id).length;
   return '<div class="ur" data-a="pick" data-u="'+esc(x.id)+'"><div><b>'+esc(x.name||"User")+' 🆔 '+esc(x.pid||"-")+'</b>'+
   '<small>Telegram ID '+esc(x.id)+(x.un?' | @'+esc(x.un):'')+'</small>'+
-  '<small>Ads watched: '+esc(x.vids||0)+' | Today: '+(x.day===td?esc(x.today||0):0)+' | Total earned: '+esc(x.total||0)+'</small>'+
+  '<small>Ads watched: '+esc(x.vids||0)+' | Today: '+(x.day===td?esc(x.today||0):0)+' | Total earned: '+esc(x.total||0)+' 🪙</small>'+
   '<small>Referrals paid: '+esc(x.refPaid||0)+' | Requests: '+rq+'</small></div>'+
-  '<div class="rt"><b>₹'+esc(x.bal||0)+'</b><small>tap to select</small></div></div>'}).join("")||'<small class="mut">User not found</small>'}
+  '<div class="rt"><b>'+esc(x.bal||0)+' 🪙</b><small>tap to select</small></div></div>'}).join("")||'<small class="mut">User not found</small>'}
 async function admLoad(){
  try{
   const rs=await Promise.all([db.ref("users").once("value"),db.ref("reqs").once("value")]);
@@ -423,7 +473,7 @@ async function admLoad(){
   $("areqs").innerHTML=reqs.slice(0,60).map(r=>{
    const us=nameOf[r.uid]||{},st=r.status==="paid"?'<span class="tg ok">paid</span>':r.status==="rejected"?'<span class="tg no">rejected</span>':'<span class="tg">pending</span>';
    const who=esc(us.name||"User")+' 🆔 '+esc(us.pid||"-")+(us.un?' (@'+esc(us.un)+')':'');
-   return '<div class="ur"><div><b>'+(r.type==="voucher"?"🎟️ Voucher":"💸 Withdraw")+' ₹'+esc(r.amt)+'</b>'+
+   return '<div class="ur"><div><b>'+(r.type==="voucher"?"🎟️ Voucher":"💸 Withdraw")+' '+esc(r.amt)+' 🪙 = ₹'+(r.amt*(r.rate||TV)/100).toFixed(2)+'</b>'+
     '<small>'+who+' | ID '+esc(r.uid)+'</small><small>'+(r.t?new Date(r.t).toLocaleString():'')+'</small>'+
     (r.status?'':'<div class="ab"><button data-a="paid" data-u="'+esc(r.uid)+'" data-k="'+esc(r.key)+'">✅ Paid</button><button class="g" data-a="rej" data-u="'+esc(r.uid)+'" data-k="'+esc(r.key)+'" data-m="'+esc(r.amt)+'">❌ Reject + Refund</button></div>')+
     '</div><div class="rt">'+st+'</div></div>'}).join("")||'<small class="mut">No requests yet</small>';
@@ -431,7 +481,7 @@ async function admLoad(){
   $("ausers").innerHTML=users.slice(0,150).map(x=>
    '<div class="ur" data-a="pick" data-u="'+esc(x.id)+'"><div><b>'+esc(x.name||"User")+' 🆔 '+esc(x.pid||"-")+'</b>'+
    '<small>ID '+esc(x.id)+(x.un?' | @'+esc(x.un):'')+'</small><small>Total ads: '+esc(x.vids||0)+'</small></div>'+
-   '<div class="rt"><b>'+cnt(x)+' ads today</b><small>₹'+esc(x.bal||0)+'</small></div></div>').join("")||'<small class="mut">No users yet</small>';
+   '<div class="rt"><b>'+cnt(x)+' ads today</b><small>'+esc(x.bal||0)+' 🪙</small></div></div>').join("")||'<small class="mut">No users yet</small>';
  admSearch();
  }catch(e){toast("Could not load data. Check rules/config.")}}
 async function admAct(e){
@@ -443,27 +493,28 @@ async function admAct(e){
    const bs=await db.ref("users/"+id+"/bal").once("value"),up={};
    up["reqs/"+id+"/"+b.dataset.k+"/status"]="rejected";
    up["users/"+id+"/bal"]=(bs.val()||0)+Number(b.dataset.m);
-   await db.ref().update(up);toast("Rejected, coins refunded")}
+   await db.ref().update(up);toast("Rejected, tokens refunded")}
   admLoad();
  }catch(x){toast("Failed. Check admin access.")}}
 $("areqs").addEventListener("click",admAct);$("asr").addEventListener("click",admAct);$("ausers").addEventListener("click",admAct);
 async function wal(sign){
  let id=$("aid").value.trim();const n=parseInt($("aamt").value,10);
  const fu=ADM.users.find(x=>String(x.pid)===id);if(fu)id=fu.id;
- if(!/^\d{5,15}$/.test(id)||!(n>0))return toast("Enter valid ID and coins");
+ if(!/^\d{5,15}$/.test(id)||!(n>0))return toast("Enter valid ID and tokens");
  try{
   const s=await db.ref("users/"+id+"/bal").once("value");if(!s.exists())return toast("User not found");
   const nb=Math.min(100000,Math.max(0,s.val()+sign*n));
   await db.ref("users/"+id+"/bal").set(nb);
-  toast((sign>0?"Added. ":"Cut. ")+"New balance: "+nb);$("aamt").value="";admLoad();
+  toast((sign>0?"Added. ":"Cut. ")+"New balance: "+nb+" tokens");$("aamt").value="";admLoad();
  }catch(x){toast("Failed. Check admin access.")}}
 
 function render(){
  if(S.day!==today()){S.day=today();S.today=0}
- const nmv=u.first_name||u.username||"User",rf=Math.min(S.refs||0,CFG.refMax);
+ const nmv=u.first_name||u.username||"User",rf=Math.min(S.refs||0,CFG.refMax),tpr=Math.round(10000/TV)/100;
  $("nm").textContent=nmv;$("pfn").textContent=nmv;
  $("pfid").textContent="ID: "+(S.pid||"------")+" | Balance "+R(S.bal);
- $("top").textContent=R(S.bal);$("bal").textContent=R(S.bal);$("eq").textContent=RS(S.bal);
+ $("top").textContent=R(S.bal);$("bal").textContent=R(S.bal);$("eq").textContent=RS(S.bal)+"  •  "+tpr+" tokens = ₹1";
+ $("acur").textContent="Abhi: 1 🪙 = ₹"+(TV/100).toFixed(2)+"  ("+tpr+" tokens = ₹1)";
  $("s1").textContent=R(S.total);$("s2").textContent=S.vids;$("s3").textContent=S.refs||0;
  $("chip").textContent="🎬 "+S.today+" ads watched today";
  $("b1").innerHTML="🎬 Watch Ad &amp; Earn "+R(CFG.reward);
@@ -483,14 +534,14 @@ function render(){
  $("slots").innerHTML=Array.from({length:CFG.refMax},(_,i)=>'<span class="'+(i<rf?"on":"")+'">'+(i<rf?"✓":i+1)+'</span>').join("");
  /* withdraw */
  const okB=S.bal>=CFG.minW,okR=(S.refs||0)>=CFG.minRefs,ok=okB&&okR;
- $("mw").textContent=R(CFG.minW);$("cur").textContent="Current: "+R(S.bal);$("okm").textContent=okB?"✅":"❌";
+ $("mw").textContent=R(CFG.minW)+" ("+RS(CFG.minW)+")";$("cur").textContent="Current: "+R(S.bal)+" ("+RS(S.bal)+")";$("okm").textContent=okB?"✅":"❌";
  $("refrow").style.display=CFG.minRefs>0?"flex":"none";
  $("mr").textContent=CFG.minRefs;$("cr").textContent="Current: "+(S.refs||0)+" friends";$("okr").textContent=okR?"✅":"❌";
  $("lk").className="lock"+(ok?" ok":"");
  $("lk").textContent=ok?"✅ You can withdraw now":"🔒 Complete both criteria above to unlock withdrawal";
  $("wb").textContent="Request Withdrawal";$("wb").disabled=!ok;
  $("pn").innerHTML="🕐 Processing takes 24–48 hours<br>✅ "+esc(CFG.payDays)+"<br>📞 Support: <a onclick=\"helpOpen()\">@"+esc(CFG.support)+"</a>";
- renderHist()}
+ wcalc();renderHist()}
 $("gbest").textContent="Best "+G.best;
 boot();
 </script></body></html>
