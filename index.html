@@ -50,6 +50,14 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
 .box{background:var(--card);border:1.5px solid var(--ln);border-radius:24px;padding:26px;text-align:center;width:86%;max-width:340px}
 .code{font-size:22px;font-weight:900;letter-spacing:2px;color:var(--y);background:#0f0f19;border:2px dashed var(--y2);border-radius:14px;padding:16px 8px;margin:14px 0;word-break:break-all}
 #toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-90px);background:#2a2a3d;border:1px solid #3a3a52;color:#fff;padding:12px 20px;border-radius:16px;font-weight:700;font-size:14px;transition:.3s;z-index:30;max-width:90%;text-align:center}#toast.on{transform:translate(-50%,0)}
+/* game */
+.arena{position:relative;height:230px;border-radius:16px;background:#0f0f19;border:1.5px solid var(--ln);margin-top:14px;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.tgt{position:absolute;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:#f5c51830;border:2px solid var(--y);animation:pop .15s ease-out;box-shadow:0 0 18px #f5c51866}
+.tgt.bomb{background:#ff5a6e30;border-color:var(--rd);box-shadow:0 0 18px #ff5a6e66}
+@keyframes pop{from{transform:scale(.3)}to{transform:scale(1)}}
+.gend,.gidle{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:12px}
+.gend b{font-size:22px;color:var(--y)}.gend span{font-size:34px;font-weight:900}
+.gidle{color:var(--mut);font-size:14px;line-height:1.6}.gidle b{color:var(--ink);font-size:18px}
 /* history + admin */
 .hsum{margin:14px 0 4px;font-size:13px;color:var(--mut)}.hsum b{display:block;font-size:30px;color:var(--y)}
 .adm{position:fixed;inset:0;background:var(--bg);z-index:15;display:none;overflow:auto;padding:0 16px 60px}.adm.on{display:block}
@@ -70,6 +78,12 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
     <div class="st"><div><b id="s1">0</b>Total Earned</div><div><b id="s2">0</b>Ads Watched</div><div><b id="s3">0</b>Referrals</div></div>
     <span class="chip" id="chip">🎬 0 ads watched today</span></div>
   <button class="btn" id="b1" onclick="watch()"></button>
+  <div class="card" id="gcard"><div class="r"><div class="ic">⭐</div><div class="i"><b>Tap Rush</b><small>Tap the stars for 10 seconds</small></div><div class="gain" id="gbest">Best 0</div></div>
+    <div class="arena" id="garena"><div class="gidle"><b>Ready?</b>Tap ⭐ = +1 &nbsp;|&nbsp; 💣 = -3<br>Score 15+ gives a bonus</div></div>
+    <div class="split"><span id="gtime">10.0s</span><span id="gscore">Score 0</span></div>
+    <div class="bar"><i id="gbar"></i></div>
+    <button class="btn" id="gbtn" onclick="gameStart()">▶️ Play (10 sec)</button>
+    <button class="btn o" id="gclaim" style="display:none" onclick="gameClaim()"></button></div>
   <h4>QUICK EARN</h4>
   <div class="card r" onclick="go('refer')"><div class="ic">👥</div><div class="i"><b>Refer a Friend</b><small id="rtxt"></small></div><div class="gain" id="rg"></div></div>
   <div class="card r" onclick="go('earn')"><div class="ic">🎯</div><div class="i"><b>Earn More</b><small id="etxt"></small></div><div class="gain" id="eg"></div></div>
@@ -260,21 +274,60 @@ async function claimRefs(){
  }}
 
 /* ====== ADS ====== */
-async function watch(){
- if(busy)return;if(!ready)return toast("Loading… try again");
+async function watch(extra){
+ extra=+extra||0;
+ if(busy)return false;if(!ready){toast("Loading… try again");return false}
  if(S.day!==today()){S.day=today();S.today=0}
- if(S.today>=CFG.dailyMax)return toast("Daily limit reached. Come back tomorrow.");
- if(Date.now()-lastAd<CFG.gap)return toast("Wait a few seconds");
- if(!AC)return toast("Ad not available. Try again.");
- busy=true;
+ if(S.today>=CFG.dailyMax){toast("Daily limit reached. Come back tomorrow.");return false}
+ if(Date.now()-lastAd<CFG.gap){toast("Wait a few seconds");return false}
+ if(!AC){toast("Ad not available. Try again.");return false}
+ busy=true;let ok=false;
  try{
   const r=await AC.show();
   if(!(r&&r.done))throw 0;
-  const up={bal:S.bal+CFG.reward,total:S.total+CFG.reward,vids:S.vids+1,today:S.today+1,day:today(),last:TS},k=dk(),h=H[k]||{ads:0,coins:0};
-  await commit(up,k,{ads:h.ads+1,coins:h.coins+CFG.reward});
-  delete up.last;Object.assign(S,up);lastAd=Date.now();toast("+"+R(CFG.reward)+" earned!");
+  const rw=CFG.reward+extra,up={bal:S.bal+rw,total:S.total+rw,vids:S.vids+1,today:S.today+1,day:today(),last:TS},k=dk(),h=H[k]||{ads:0,coins:0};
+  await commit(up,k,{ads:h.ads+1,coins:h.coins+rw});
+  delete up.last;Object.assign(S,up);lastAd=Date.now();toast("+"+R(rw)+" earned!");ok=true;
  }catch(e){toast("Ad not finished or not available. Try again.");try{await load()}catch(x){}}
- busy=false;render()}
+ busy=false;render();return ok}
+
+/* ====== GAME: Tap Rush (10 sec). Khelna free h, ad dekhne par bonus milta h ====== */
+const GT=[[35,3],[25,2],[15,1]];
+let G={on:false,score:0,bonus:0,claimed:true,t0:0,iv:null,sp:null,best:0};
+try{G.best=parseInt(localStorage.getItem("tr_best")||"0",10)||0}catch(e){}
+function gameTier(sc){for(const t of GT)if(sc>=t[0])return t[1];return 0}
+function gameSpawn(){
+ if(!G.on)return;
+ const a=$("garena"),w=Math.max(0,a.clientWidth-62),h=Math.max(0,a.clientHeight-62),bomb=Math.random()<0.2;
+ a.innerHTML="";
+ const d=document.createElement("div");d.className="tgt"+(bomb?" bomb":"");d.textContent=bomb?"💣":"⭐";
+ d.style.left=Math.random()*w+"px";d.style.top=Math.random()*h+"px";
+ d.addEventListener("pointerdown",e=>{e.preventDefault();if(!G.on)return;
+  G.score=bomb?Math.max(0,G.score-3):G.score+1;$("gscore").textContent="Score "+G.score;gameSpawn()});
+ a.appendChild(d);
+ clearTimeout(G.sp);G.sp=setTimeout(gameSpawn,Math.max(450,800-G.score*12))}
+function gameStart(){
+ if(G.on)return;
+ G.on=true;G.score=0;G.claimed=false;G.t0=Date.now();
+ $("gscore").textContent="Score 0";$("gbar").style.width="0%";$("gtime").textContent="10.0s";
+ $("gbtn").disabled=true;$("gbtn").textContent="Playing…";$("gclaim").style.display="none";
+ gameSpawn();
+ G.iv=setInterval(()=>{
+  const el=(Date.now()-G.t0)/1000,left=Math.max(0,10-el);
+  $("gtime").textContent=left.toFixed(1)+"s";$("gbar").style.width=Math.min(100,el/10*100)+"%";
+  if(left<=0)gameEnd()},100)}
+function gameEnd(){
+ G.on=false;clearInterval(G.iv);clearTimeout(G.sp);
+ const sc=G.score;G.bonus=gameTier(sc);
+ if(sc>G.best){G.best=sc;try{localStorage.setItem("tr_best",String(sc))}catch(e){}}
+ $("garena").innerHTML='<div class="gend"><b>Time\'s up!</b><span>Score '+sc+'</span></div>';
+ $("gbest").textContent="Best "+G.best;$("gtime").textContent="0.0s";$("gbar").style.width="100%";
+ $("gbtn").disabled=false;$("gbtn").textContent="🔁 Play again";
+ const c=$("gclaim");c.style.display="block";c.textContent="🎁 Watch ad & claim "+R(CFG.reward+G.bonus)}
+async function gameClaim(){
+ if(G.claimed||G.on)return;
+ const ok=await watch(G.bonus);
+ if(ok){G.claimed=true;$("gclaim").style.display="none"}}
 
 /* ====== EARN MORE (roz N ads = bonus) ====== */
 function earnBtn(){
@@ -438,5 +491,6 @@ function render(){
  $("wb").textContent="Request Withdrawal";$("wb").disabled=!ok;
  $("pn").innerHTML="🕐 Processing takes 24–48 hours<br>✅ "+esc(CFG.payDays)+"<br>📞 Support: <a onclick=\"helpOpen()\">@"+esc(CFG.support)+"</a>";
  renderHist()}
+$("gbest").textContent="Best "+G.best;
 boot();
 </script></body></html>
