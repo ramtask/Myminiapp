@@ -73,6 +73,10 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
 .ur small{color:var(--mut);display:block;word-break:break-all}.ur .rt{text-align:right;flex:none}
 .ab{display:flex;gap:8px;margin-top:8px}.ab button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--a),var(--b))}.ab button.g{background:transparent;color:var(--rd);border:1.5px solid #5a2a46}
 .tg{display:inline-block;border-radius:10px;padding:2px 8px;font-size:12px;font-weight:800;background:#22d3ee1f;color:var(--a)}.tg.ok{background:#34d3991f;color:var(--gr)}.tg.no{background:#ffffff18;color:#aaa}
+.adtag{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:7px;font-size:11px;font-weight:900;letter-spacing:1px;background:#0a0d1c;color:var(--gold);border:1px solid var(--gold);vertical-align:middle}
+.adnote{display:block;text-align:center;color:var(--mut);font-size:12px;margin-top:8px}
+.days{display:flex;gap:6px;margin-top:14px}.days span{flex:1;height:40px;border-radius:10px;background:#1c2145;display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--mut);line-height:1.15;text-align:center}.days span.on{background:linear-gradient(135deg,var(--gold),#fb923c);color:#1a1000}
+.faq details{border-top:1px solid var(--ln);padding:12px 0}.faq details:first-of-type{margin-top:10px}.faq summary{font-weight:800;cursor:pointer}.faq p{color:var(--mut);font-size:13px;margin:8px 0 0;line-height:1.6}
 </style></head><body>
 
 <header>
@@ -89,6 +93,11 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
     <div class="st"><div><b id="s1">0</b>Total Earned</div><div><b id="s2">0</b>Ads Watched</div><div><b id="s3">0</b>Referrals</div></div>
     <span class="chip" id="chip">🎬 0 ads watched today</span></div>
   <button class="btn" id="b1" onclick="watch()"></button>
+  <small class="adnote">📺 Tapping this button plays a short rewarded video ad</small>
+
+  <div class="card"><div class="r"><div class="ic">📅</div><div class="i"><b>Daily Check-in</b><small>Free tokens every day, no ads</small></div><div class="gain" id="ckg"></div></div>
+    <div class="days" id="days"></div>
+    <button class="btn o" id="ckb" onclick="checkIn()"></button></div>
 
   <div class="card" id="gcard"><div class="r">
     <div class="ic"><svg viewBox="0 0 64 64"><defs><linearGradient id="lgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#lgG)"/><circle cx="32" cy="33" r="19" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/><path d="M32 14l5.6 11.4 12.6 1.8-9.1 8.9 2.2 12.5L32 42.6 20.7 48.6l2.2-12.5-9.1-8.9 12.6-1.8z" fill="#fff"/></svg></div>
@@ -101,9 +110,15 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
 
   <div class="card"><h2 style="margin:0">🏆 Top Players</h2><small class="mut">Best Tap Rush scores</small><div id="toplist" style="margin-top:8px"></div></div>
 
+  <div class="card"><h2 style="margin:0">📺 Where ads appear</h2><small class="mut">Ads only play when you tap one of these buttons. Playing the game and everything else is free.</small>
+    <div class="ur" style="border-top:1px solid var(--ln);margin-top:10px"><div><b>1. Home → "Watch Ad &amp; Earn"</b><small>Rewarded video, gives tokens</small></div><div class="rt"><span class="adtag">AD</span></div></div>
+    <div class="ur"><div><b>2. Tap Rush → "Watch ad &amp; claim"</b><small>After the game ends, optional bonus</small></div><div class="rt"><span class="adtag">AD</span></div></div>
+    <div class="ur"><div><b>3. Earn More → "Watch Ad (x/10)"</b><small>Daily bonus task</small></div><div class="rt"><span class="adtag">AD</span></div></div></div>
+
   <h4>QUICK EARN</h4>
   <div class="card r" onclick="go('refer')"><div class="ic">👥</div><div class="i"><b>Refer a Friend</b><small id="rtxt"></small></div><div class="gain" id="rg"></div></div>
   <div class="card r" onclick="go('earn')"><div class="ic">🎯</div><div class="i"><b>Earn More</b><small id="etxt"></small></div><div class="gain" id="eg"></div></div>
+  <div class="card r" onclick="go('profile')"><div class="ic">❓</div><div class="i"><b>Help &amp; FAQ</b><small>How it works, rules and support</small></div><div class="gain">›</div></div>
 </section>
 
 <section id="tasks" class="tab">
@@ -118,7 +133,8 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
   <div class="card"><div class="r"><div class="ic">🎯</div><div class="i"><b id="et">Watch Ads</b><small>Watch ads and claim a bonus</small></div><div class="gain" id="eg2"></div></div>
     <div class="bar"><i id="ep"></i></div>
     <div class="split"><span id="ec"></span><span id="epc"></span></div>
-    <button class="btn" id="eb" onclick="earnBtn()"></button></div>
+    <button class="btn" id="eb" onclick="earnBtn()"></button>
+    <small class="adnote">📺 Each "Watch Ad" tap plays a short rewarded video ad</small></div>
 </section>
 
 <section id="refer" class="tab">
@@ -146,7 +162,8 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
   <div class="note" id="pn"></div>
   <div class="card"><h2 style="margin:0">✅ Recent Payouts</h2><small class="mut">Real withdrawals paid to users</small>
     <div class="hsum"><b id="ptot">₹0.00</b>Total paid out</div>
-    <div id="plist"></div></div>
+    <div id="plist"></div>
+    <button class="btn o" id="pch" style="display:none" onclick="proofOpen()">📢 Payout proof channel</button></div>
   <div class="card"><h2 style="margin:0">📜 My History</h2><small class="mut">Earnings and withdrawals</small>
     <div class="hsum"><b id="hte">0 🪙</b>Total earned</div>
     <div id="hlist"></div></div>
@@ -156,6 +173,13 @@ nav button{flex:1;background:none;border:0;color:var(--mut);font-size:11px;font-
   <h2>Profile</h2>
   <div class="card"><div class="r"><div class="ic">🙂</div><div class="i"><b id="pfn">User</b><small id="pfid"></small></div></div></div>
   <div class="card r" onclick="helpOpen()"><div class="ic">💬</div><div class="i"><b>Help</b><small>Chat with support on Telegram</small></div><div class="gain">›</div></div>
+  <div class="card faq"><h2 style="margin:0">❓ How it works</h2>
+    <details><summary>How do I earn tokens?</summary><p>Daily check-in, playing Tap Rush, inviting friends, and optional rewarded video ads. Ads only play when you tap a button marked AD. Everything else is free.</p></details>
+    <details><summary>What is a token worth?</summary><p id="faqv"></p></details>
+    <details><summary>How do withdrawals work?</summary><p>Request a withdrawal in the Withdraw tab and send the pre-filled message to support. Support checks every request and sends the payout to your UPI. Paid withdrawals appear in Recent Payouts.</p></details>
+    <details><summary>Rules</summary><p>One account per person. Fake accounts, bots, auto-clickers and self-referrals are not allowed and can lead to lost tokens and rejected withdrawals.</p></details>
+    <details><summary>Privacy</summary><p>We store your Telegram ID, name, username and app activity (tokens, ads watched, game scores) to run the app. Your UPI ID is only sent to support in the Telegram chat and is not saved in the app database. Ads are provided by Adsgram.</p></details>
+  </div>
 </section>
 
 <nav>
@@ -215,7 +239,9 @@ const CFG={
  support:"probo999",         // support Telegram username (bina @)
  payDays:"Payments are processed every Monday & Thursday",
  link:"https://t.me/Mohan999_bot/Tasks",   // BotFather /myapps wala link
- adminCode:"9045"            // Refer tab > Bonus Code me ye daalne par admin panel khulta h
+ adminCode:"9045",          // Refer tab > Bonus Code me ye daalne par admin panel khulta h
+ ckBase:2,                   // daily check-in: Day 1 = 2 tokens, Day 7 = 8 tokens (bina ad ke)
+ proofChannel:""             // payout proof wala public channel username (jaise "minitv_payouts"). Khali = button nahi dikhega
 };
 /* ====== FIREBASE ====== */
 const FBCFG={
@@ -276,6 +302,21 @@ async function loadTop(){
   a.sort((x,y)=>y.s-x.s);
   $("toplist").innerHTML=a.map((v,i)=>'<div class="ur"><div><b>'+(i<3?["🥇","🥈","🥉"][i]:(i+1)+".")+' '+esc(v.n||"Player")+'</b></div><div class="rt"><b>'+esc(v.s)+'</b></div></div>').join("")||'<small class="mut">Be the first on the board!</small>';
  }catch(e){}}
+function hap(t){try{tg.HapticFeedback&&tg.HapticFeedback.notificationOccurred(t)}catch(e){}}
+function hapI(){try{tg.HapticFeedback&&tg.HapticFeedback.impactOccurred("light")}catch(e){}}
+const yd=()=>new Date(Date.now()-864e5).toDateString();
+const ckAmt=st=>CFG.ckBase+Math.min(st,7)-1;
+async function checkIn(){
+ if(!ready)return toast("Loading… try again");
+ if(S.ck===today())return toast("Already checked in today. Come back tomorrow!");
+ if(busy)return;busy=true;
+ try{
+  const stk=(S.ck===yd()?(S.stk||0):0)+1,amt=ckAmt(stk);
+  const up={bal:S.bal+amt,total:S.total+amt,ck:today(),stk:stk},k=dk(),h=H[k]||{ads:0,coins:0};
+  await commit(up,k,{ads:h.ads,coins:h.coins+amt});Object.assign(S,up);hap("success");toast("+"+R(amt)+" check-in bonus! Day "+stk);
+ }catch(e){toast("Failed. Try again.")}
+ busy=false;render()}
+function proofOpen(){const c=CFG.proofChannel.replace("@","");if(c)tg.openTelegramLink("https://t.me/"+c)}
 function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2800)}
 function go(id){document.querySelectorAll(".tab").forEach(e=>e.classList.remove("on"));$(id).classList.add("on");
  const names=["home","tasks","earn","refer","withdraw"];document.querySelectorAll("nav button").forEach((e,i)=>e.classList.toggle("on",names[i]===id));window.scrollTo(0,0);if(id==="withdraw")loadHist()}
@@ -333,7 +374,7 @@ async function watch(extra){
   if(!(r&&r.done))throw 0;
   const rw=CFG.reward+extra,up={bal:S.bal+rw,total:S.total+rw,vids:S.vids+1,today:S.today+1,day:today(),last:TS},k=dk(),h=H[k]||{ads:0,coins:0};
   await commit(up,k,{ads:h.ads+1,coins:h.coins+rw});
-  delete up.last;Object.assign(S,up);lastAd=Date.now();toast("+"+R(rw)+" earned!");ok=true;
+  delete up.last;Object.assign(S,up);lastAd=Date.now();hap("success");toast("+"+R(rw)+" earned!");ok=true;
  }catch(e){toast("Ad not finished or not available. Try again.");try{await load()}catch(x){}}
  busy=false;render();return ok}
 
@@ -349,7 +390,7 @@ function gameSpawn(){
  const d=document.createElement("div");d.className="tgt"+(bomb?" bomb":"");d.textContent=bomb?"💣":"⭐";
  d.style.left=Math.random()*w+"px";d.style.top=Math.random()*h+"px";
  d.addEventListener("pointerdown",e=>{e.preventDefault();if(!G.on)return;
-  G.score=bomb?Math.max(0,G.score-3):G.score+1;$("gscore").textContent="Score "+G.score;gameSpawn()});
+  G.score=bomb?Math.max(0,G.score-3):G.score+1;hapI();$("gscore").textContent="Score "+G.score;gameSpawn()});
  a.appendChild(d);
  clearTimeout(G.sp);G.sp=setTimeout(gameSpawn,Math.max(450,800-G.score*12))}
 function gameStart(){
@@ -371,7 +412,7 @@ function gameEnd(){
  $("garena").innerHTML='<div class="gend"><b>Time\'s up!</b><span>Score '+sc+'</span></div>';
  $("gbest").textContent="Best "+G.best;$("gtime").textContent="0.0s";$("gbar").style.width="100%";
  $("gbtn").disabled=false;$("gbtn").textContent="🔁 Play again";
- const c=$("gclaim");c.style.display="block";c.textContent="🎁 Watch ad & claim "+R(CFG.reward+G.bonus)}
+ const c=$("gclaim");c.style.display="block";c.innerHTML="🎁 Watch ad &amp; claim "+R(CFG.reward+G.bonus)+' <span class="adtag">AD</span>'}
 async function gameClaim(){
  if(G.claimed||G.on)return;
  const ok=await watch(G.bonus);
@@ -516,15 +557,22 @@ function render(){
  $("top").textContent=R(S.bal);$("bal").textContent=R(S.bal);$("eq").textContent=RS(S.bal)+"  •  "+tpr+" tokens = ₹1";
  $("acur").textContent="Abhi: 1 🪙 = ₹"+(TV/100).toFixed(2)+"  ("+tpr+" tokens = ₹1)";
  $("s1").textContent=R(S.total);$("s2").textContent=S.vids;$("s3").textContent=S.refs||0;
- $("chip").textContent="🎬 "+S.today+" ads watched today";
- $("b1").innerHTML="🎬 Watch Ad &amp; Earn "+R(CFG.reward);
+ $("chip").textContent=ready?"🎬 "+S.today+" ads watched today":"⏳ Loading your account…";
+ /* daily check-in */
+ const done=S.ck===today(),cur=(done||S.ck===yd())?(S.stk||0):0,pos=done?((cur-1)%7)+1:cur%7;
+ $("days").innerHTML=Array.from({length:7},(_,i)=>'<span class="'+(i<pos?"on":"")+'">D'+(i+1)+'<br>+'+ckAmt(i+1)+'</span>').join("");
+ $("ckg").textContent="+"+R(ckAmt(done?cur:cur+1));
+ $("ckb").textContent=done?"✅ Checked in today (Day "+cur+")":"📅 Check in & get "+R(ckAmt(cur+1));$("ckb").disabled=done;
+ $("faqv").textContent="Right now 1 token ≈ ₹"+(TV/100).toFixed(2)+" ("+tpr+" tokens = ₹1). The value is set by the app and can change. The current value is always shown on the Home screen.";
+ $("pch").style.display=CFG.proofChannel?"block":"none";
+ $("b1").innerHTML="🎬 Watch Ad &amp; Earn "+R(CFG.reward)+' <span class="adtag">AD</span>';
  $("rtxt").textContent="Earn "+R(CFG.refBonus)+" for each referral";$("rg").textContent="+"+R(CFG.refBonus);
  $("etxt").textContent="Watch "+CFG.bonusAds+" ads for a bonus";$("eg").textContent="+"+R(CFG.bonus);
  /* earn more */
  const n=Math.min(S.today,CFG.bonusAds),claimed=S.bd===today();
  $("et").textContent="Watch "+CFG.bonusAds+" Ads";$("eg2").textContent="+"+R(CFG.bonus);
  $("ep").style.width=(n/CFG.bonusAds*100)+"%";$("ec").textContent=n+" / "+CFG.bonusAds+" ads";$("epc").textContent=Math.round(n/CFG.bonusAds*100)+"%";
- $("eb").textContent=claimed?"✅ Bonus claimed today":(S.today>=CFG.bonusAds?"🎁 Claim bonus +"+R(CFG.bonus):"▶️ Watch Ad ("+n+"/"+CFG.bonusAds+")");
+ $("eb").innerHTML=claimed?"✅ Bonus claimed today":(S.today>=CFG.bonusAds?"🎁 Claim bonus +"+R(CFG.bonus):"▶️ Watch Ad ("+n+"/"+CFG.bonusAds+') <span class="adtag">AD</span>');
  $("eb").disabled=claimed;
  /* refer */
  $("rn").textContent=S.refs||0;$("rtxt2").textContent="Earn "+R(CFG.refBonus)+" for every friend who joins using your link (max "+CFG.refMax+")";
